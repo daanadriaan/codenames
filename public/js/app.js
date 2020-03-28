@@ -1941,13 +1941,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['card'],
   data: function data() {
-    return {};
+    return {
+      turned: false
+    };
   },
   mounted: function mounted() {},
-  methods: {}
+  methods: {
+    turn: function turn() {
+      this.turned = true;
+    }
+  }
 });
 
 /***/ }),
@@ -4297,7 +4310,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".card{\n  position:relative;\n  min-height: 100px;\n  height: 10vw;\n}\n.card span{\n  position:absolute;\n  width:100%;\n  text-align:center;\n  top: 50%;\n  transform:translateY(-50%);\n}\n\n", ""]);
+exports.push([module.i, ".card{\n  background:transparent;\n  min-height: 100px;\n  height: 10vw;\n  perspective: 1000px;\n}\n.card-inner{\n  position:relative;\n  width:100%;\n  height:100%;\n  transition:transform 1000ms; /*cubic-bezier(0.090, 0.410, 0.870, 0.590);*/\n  transform-style: preserve-3d;\n}\n.card .front, .card .back{\n  width: 100%;\n  height: 100%;\n  position:absolute;\n  -webkit-backface-visibility: hidden;\n          backface-visibility: hidden;\n}\n.card .back{\n  transform: rotateY(180deg);\n}\n.card.flipped .card-inner{\n  transform: rotateY(180deg);\n}\n.card span, .card strong{\n  display:block;\n  text-align:center;\n}\n@media (min-width:992px){\n.card span, .card strong{\n    padding-top:calc(4vw);\n}\n}\n\n", ""]);
 
 // exports
 
@@ -43882,19 +43895,45 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass:
-        "card shadow hover:shadow-lg hover:scale-105 duration-150 ease-in-out cursor-pointer rounded",
-      class: { "bg-blue-lighter": _vm.card }
-    },
-    [
-      _c("span", { staticClass: "p-40" }, [
-        _vm._v(_vm._s(_vm.card ? _vm.card.name : ""))
-      ])
-    ]
-  )
+  return _c("div", { staticClass: "card", class: { flipped: _vm.turned } }, [
+    _c(
+      "div",
+      {
+        staticClass:
+          "card-inner shadow hover:shadow-lg duration-150 ease-in-out cursor-pointer"
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "bg-blue-lighter front rounded w-full h-full",
+            on: { click: _vm.turn }
+          },
+          [
+            _c("span", { staticClass: "p-40" }, [
+              _vm._v(_vm._s(_vm.card ? _vm.card.name : ""))
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _vm.turned
+          ? _c(
+              "div",
+              {
+                staticClass: "back rounded w-full h-full",
+                class: {
+                  "bg-green-lighter": _vm.card.pivot.role === 1,
+                  "bg-red": _vm.card.pivot.role === 2,
+                  "bg-blue": _vm.card.pivot.role === 3,
+                  "bg-black text-white": _vm.card.pivot.role === 4
+                }
+              },
+              [_c("strong", { staticClass: "p-40" })]
+            )
+          : _vm._e()
+      ]
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

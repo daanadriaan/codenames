@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\Helper;
 use App\Traits\UsesUuid;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -11,12 +12,25 @@ class Table extends Model{
 
     public $with = ['locations', 'cards'];
 
+    const ROLES = [
+        1 => 'Burger', // 7
+        2 => 'Starter', // 9
+        3 => 'Volger', // 8
+        4 => 'Moordenaar' // 1
+    ];
+
     protected static function boot()
     {
         parent::boot();
 
         static::created(function ($table) {
-            $table->cards()->attach(Card::inRandomOrder()->take(25)->pluck('id')->toArray());
+            $roles = [1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,4];
+            shuffle($roles);
+            $ids = Card::inRandomOrder()->take(25)->pluck('id')->toArray();
+            foreach($ids as $k => $id){
+                $table->cards()->attach($id, ['role' => $roles[$k]]);
+            }
+
         });
 
         static::addGlobalScope('open', function (Builder $builder) {
