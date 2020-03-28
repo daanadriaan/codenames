@@ -1,0 +1,44 @@
+// Inject Tailwind base styles
+@tailwind base;
+// Inject Tailwind component classes
+@tailwind components;
+// Inject Tailwind utility classes
+@tailwind utilities;
+
+@import './bootbox';
+
+a{
+    text-decoration:none;
+}
+
+.btn{
+    background-color:#83b1c9;
+    border-radius:7px;
+    padding:20px 30px;
+    color:white;
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+}
+
+
+.fade-left-enter-active, .fade-left-leave-active {
+    transition: all .5s;
+}
+.fade-left-enter, .fade-left-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+    transform: translateX(-100%);
+}
+
+
+.fade-right-enter-active, .fade-right-leave-active {
+    transition: all .5s;
+}
+.fade-right-enter, .fade-right-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+    transform: translateX(100%);
+}

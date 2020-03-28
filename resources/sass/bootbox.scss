@@ -1,0 +1,133 @@
+.bootbox.modal{
+    position: fixed;
+	overflow:hidden;
+	display:fixed;
+	top:0; right:0; left:0; bottom:0; z-index:999999; outline:none;
+
+	&.fade {
+		opacity:0;
+		transform:translateY(-60px);
+		transition:all 500ms ease;
+	}
+	&.in{
+		opacity:1;
+		transform:translateY(0px);
+	}
+
+	div{
+		line-height:1.4em;
+	}
+
+	input{
+
+        border-radius: 6px;
+        font-size: 16px;
+        padding: 15px;
+        padding-right: 40px;
+        margin-right: 30px;
+        margin-bottom: 20px;
+        background-color: #eef2f4;
+        background-repeat: no-repeat;
+        position: relative;
+        display: block;
+	}
+
+	input:not(.w-unset){
+		width: 100%;
+	}
+
+	.checkbox{
+		label{
+			padding-top:10px;
+			padding-bottom:10px;
+			display:flex;
+			input{
+				width:unset;
+			}
+		}
+	}
+
+	.modal-dialog {
+		transform:translateY(0) !important;
+		position:relative;
+		margin:10px auto;
+
+		@media screen and (min-width:768px){
+			width:600px;
+			top:100px;
+			.modal-content {
+				max-height: calc(100vh - 130px);
+			}
+		}
+		@media screen and (max-width:767px){
+			width:calc(100% - 60px);
+			top:50px;
+			.modal-content {
+				max-height: calc(100vh - 80px);
+			}
+		}
+
+		.modal-content {
+
+			position:relative;
+			background:white;
+			border-width:1px;
+			border-radius:5px;
+			box-shadow:0 3px 5px rgba(0,0,0,0.1);
+			outline:none;
+
+			.modal-header {
+				padding-left:30px;
+				padding-right:30px;
+				padding-top:20px;
+				padding-bottom:20px;
+				border-bottom-width:1px;
+			}
+
+			.modal-body{
+				width:100%;
+				position:relative;
+				padding:30px;
+				min-height:120px;
+				overflow-y: scroll;
+			}
+			.modal-footer{
+				position:relative;
+				padding-top:25px;
+				padding-bottom:25px;
+				padding-left:30px;
+				padding-right:30px;
+				text-align:right;
+
+				button{
+					margin-left:5px;
+				}
+			}
+			.close{
+				position:absolute;
+				top:0;
+				right:0;
+				padding: 10px 30px;
+				font-size:40px;
+			}
+		}
+	}
+
+	.col-sm-8{
+		max-width: 100%;
+	}
+}
+
+.modal-backdrop {
+	position:fixed;
+	top:0;
+	left:0;
+	bottom:0;
+    opacity:0;
+	right:0;
+	z-index: 101;
+	background:black;
+	transition:500ms all ease;
+	//&.fade { opacity: 0 }
+	&.in { opacity: 0.5 !important;}
+}
