@@ -23,8 +23,9 @@ Route::group(['as' => 'invite.'], function (){
     Route::post('aansluiten/{uuid}', 'InviteController@join')->name('join');
 });
 
-Route::group(['as' => 'game.', 'middleware' => 'checkGame'], function (){
-
+Route::group(['as' => 'move.', 'middleware' => 'checkGame'], function (){
+    Route::post('zet', 'InviteController@move')->name('go');
+    Route::post('draai/{card}', 'InviteController@turn')->name('turn');
 });
 
 Route::group(['as' => 'dashboard.'], function (){

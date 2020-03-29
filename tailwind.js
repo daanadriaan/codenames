@@ -90,6 +90,8 @@ let colors = {
 
     'red':       '#FE3525',
     'red-hover': '#D24141',
+    'red-light': '#FF9BA1',
+    'red-lighter': '#EBC9D0',
     'red-dull':  '#D24141',
 
     'violet':       '#8F02FF',
@@ -367,7 +369,7 @@ module.exports = {
         |
         */
 
-        borderWidths: {
+        borderWidth: {
             default: '1px',
             '0':     '0',
             '1':     '1px',
@@ -467,6 +469,13 @@ module.exports = {
             'auto':   'auto',
             'unset':  'unset',
             'px':     '1px',
+            '10': '10px',
+            '20': '20px',
+            '30': '30px',
+            '40': '40px',
+            '50': '50px',
+            '60': '60px',
+            '70': '70px',
             '1/2':    '50%',
             '1/3':    '33.33333%',
             '2/3':    '66.66667%',
@@ -546,10 +555,15 @@ module.exports = {
         height: {
             '0':      '0px',
             '5':      '5px',
-            '20':     '20px',
+            '10': '10px',
+            '20': '20px',
+            '30': '30px',
+            '40': '40px',
+            '50': '50px',
+            '60': '60px',
+            '70': '70px',
             '55':     '55px',
             '65':     '65px',
-            '60':     '60px',
             '100':    '100px',
             '200':    '200px',
             '300':    '300px',
@@ -972,6 +986,7 @@ module.exports = {
 
         opacity: {
             '0':   '0',
+            '10': '.10',
             '25':  '.25',
             '50':  '.5',
             '75':  '.75',
@@ -1035,6 +1050,15 @@ module.exports = {
         | To disable a module completely, use `false` instead of an array.
         |
         */
+
+        extend:{
+            transitionDuration: {
+                '0': '0ms',
+                '300': '300ms',
+                '600': '600ms',
+                '2000': '2000ms',
+            }
+        }
     },
 
     modules: {

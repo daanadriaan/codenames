@@ -2,8 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use Closure;
+
 class CheckGame{
-    public function handle($request, Closure $next, ...$guards)
+
+    public function handle($request, Closure $next)
     {
         if(false){
             return redirect('/');

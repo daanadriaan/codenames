@@ -2,21 +2,52 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e6f1f153-3041-4d91-b015-7c0528d60fe5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Helpers/Helper.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Events/Move.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Events/NewWord.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sass/fontawesome/_animated.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sass/fontawesome/_bordered-pulled.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sass/fontawesome/_core.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sass/fontawesome/_fixed-width.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sass/fontawesome/_icons.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sass/fontawesome/_larger.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sass/fontawesome/_list.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sass/fontawesome/_mixins.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sass/fontawesome/_rotated-flipped.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sass/fontawesome/_screen-reader.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sass/fontawesome/_shims.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sass/fontawesome/_stacked.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sass/fontawesome/_variables.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sass/fontawesome/brands.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sass/fontawesome/fontawesome.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sass/fontawesome/light.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sass/fontawesome/regular.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sass/fontawesome/solid.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/sass/fontawesome/v4-shims.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/InviteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/InviteController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/CheckGame.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/CheckGame.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Card.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Card.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/CardOnTable.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/CardOnTable.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Location.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Location.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Move.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Move.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Table.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/Card.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Card.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Game.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Game.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tailwind.js" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution>
       <executable />
@@ -137,7 +168,14 @@
       <path value="$PROJECT_DIR$/vendor/justinrainbow/json-schema" />
     </include_path>
   </component>
+  <component name="ProjectId" id="1ZnMQRP5UNrtmzxcjd4ZFZM9tFt" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectStartupLocalConfiguration">
+    <configurations>
+      <configuration id="PHP Script.Serve" name="Serve" />
+      <configuration id="npm.watch" name="watch" />
+    </configurations>
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -147,24 +185,24 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/js/components" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Events" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.startup.tasks" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/Models" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/js/components" />
       <recent name="$PROJECT_DIR$/app/Events" />
+      <recent name="$PROJECT_DIR$/public" />
       <recent name="$PROJECT_DIR$/resources/sass" />
+      <recent name="$PROJECT_DIR$/resources/js/components" />
       <recent name="$PROJECT_DIR$/resources/js" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/Models" />
     </key>
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
-      <command value="php artisan serve" />
       <command value="php artisan make:migration createPlayersTable" />
       <command value="php artisan make:migration createTablesTable" />
       <command value="php artisan make:migration createCardsTable" />
@@ -177,7 +215,38 @@
       <command value="php artisan make:migration createPlayerTableTable" />
       <command value="php artisan make:migration populateCardsTable" />
       <command value="php artisan migrate" />
+      <command value="php artisan serve" />
+      <command value="npm run watch" />
     </option>
+  </component>
+  <component name="RunManager" selected="PHP Script.Serve">
+    <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner scope="XML" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Serve" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="$PROJECT_DIR$/artisan" scriptParameters="serve">
+      <CommandLine>
+        <PhpTestInterpreterSettings>
+          <option name="interpreterName" value="PHP 7.2" />
+        </PhpTestInterpreterSettings>
+      </CommandLine>
+      <method v="2" />
+    </configuration>
+    <configuration name="watch" type="js.build_tools.npm" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="watch" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="npm.watch" />
+      <item itemvalue="PHP Script.Serve" />
+      <item itemvalue="PHPUnit.phpunit.xml" />
+    </list>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -189,14 +258,32 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1585219088285</updated>
-      <workItem from="1585219089864" duration="42738000" />
+      <workItem from="1585219089864" duration="44289000" />
+      <workItem from="1585470389510" duration="27000" />
+      <workItem from="1585470418674" duration="19636000" />
     </task>
+    <task id="LOCAL-00001" summary="Cards turning">
+      <created>1585415724492</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1585415724492</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Cards turning" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cards turning" />
+  </component>
   <component name="WindowStateProjectService">
+    <state x="940" y="-1047" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585470491223">
+      <screen x="-491" y="-1417" width="2560" height="1417" />
+    </state>
+    <state x="940" y="-1047" key="#com.intellij.execution.impl.EditConfigurationsDialog/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585470491223" />
     <state x="824" y="99" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1585247130960">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
@@ -206,40 +293,56 @@
     </state>
     <state x="728" y="-1065" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585409093340" />
     <state x="800" y="278" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1585247018519" />
-    <state width="1186" height="289" key="GridCell.Tab.0.bottom" timestamp="1585312538127">
+    <state x="694" y="87" key="CommitChangelistDialog2" timestamp="1585415723945">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1325" height="432" key="GridCell.Tab.0.bottom/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585219162736" />
-    <state width="1186" height="289" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1585312538127" />
-    <state width="1186" height="289" key="GridCell.Tab.0.center" timestamp="1585312538125">
-      <screen x="0" y="23" width="1680" height="1027" />
-    </state>
-    <state width="1325" height="432" key="GridCell.Tab.0.center/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585219162735" />
-    <state width="1186" height="289" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1585312538125" />
-    <state width="1186" height="289" key="GridCell.Tab.0.left" timestamp="1585312538125">
-      <screen x="0" y="23" width="1680" height="1027" />
-    </state>
-    <state width="1325" height="432" key="GridCell.Tab.0.left/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585219162734" />
-    <state width="1186" height="289" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1585312538125" />
-    <state width="1186" height="289" key="GridCell.Tab.0.right" timestamp="1585312538126">
-      <screen x="0" y="23" width="1680" height="1027" />
-    </state>
-    <state width="1325" height="432" key="GridCell.Tab.0.right/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585219162736" />
-    <state width="1186" height="289" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1585312538126" />
-    <state x="1103" y="-945" width="604" height="472" key="find.popup" timestamp="1585401012719">
+    <state x="694" y="87" key="CommitChangelistDialog2/0.23.1680.1027@0.23.1680.1027" timestamp="1585415723945" />
+    <state width="1186" height="432" key="GridCell.Tab.0.bottom" timestamp="1585479140859">
       <screen x="-491" y="-1417" width="2560" height="1417" />
     </state>
-    <state x="1103" y="-945" width="604" height="472" key="find.popup/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585401012719" />
-    <state x="1046" y="365" width="604" height="472" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1585322801008" />
-    <state x="1024" y="779" width="670" height="490" key="run.anything.popup" timestamp="1585312513165">
+    <state width="1186" height="432" key="GridCell.Tab.0.bottom/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585479140859" />
+    <state width="1186" height="289" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1585427146805" />
+    <state width="1186" height="432" key="GridCell.Tab.0.center" timestamp="1585479140858">
+      <screen x="-491" y="-1417" width="2560" height="1417" />
+    </state>
+    <state width="1186" height="432" key="GridCell.Tab.0.center/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585479140858" />
+    <state width="1186" height="289" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1585427146803" />
+    <state width="1186" height="432" key="GridCell.Tab.0.left" timestamp="1585479140857">
+      <screen x="-491" y="-1417" width="2560" height="1417" />
+    </state>
+    <state width="1186" height="432" key="GridCell.Tab.0.left/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585479140857" />
+    <state width="1186" height="289" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1585427146801" />
+    <state width="1186" height="432" key="GridCell.Tab.0.right" timestamp="1585479140858">
+      <screen x="-491" y="-1417" width="2560" height="1417" />
+    </state>
+    <state width="1186" height="432" key="GridCell.Tab.0.right/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585479140858" />
+    <state width="1186" height="289" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1585427146804" />
+    <state x="992" y="-1070" key="SettingsEditor" timestamp="1585470492192">
+      <screen x="-491" y="-1417" width="2560" height="1417" />
+    </state>
+    <state x="992" y="-1070" key="SettingsEditor/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585470492192" />
+    <state x="661" y="256" key="Vcs.Push.Dialog.v2" timestamp="1585415727924">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state x="1070" y="-374" width="670" height="675" key="run.anything.popup/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585219155541" />
+    <state x="661" y="256" key="Vcs.Push.Dialog.v2/0.23.1680.1027@0.23.1680.1027" timestamp="1585415727924" />
+    <state x="1298" y="-785" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1585479129123">
+      <screen x="-491" y="-1417" width="2560" height="1417" />
+    </state>
+    <state x="1298" y="-785" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585479129123" />
+    <state x="1046" y="365" width="604" height="472" key="find.popup" timestamp="1585484039548">
+      <screen x="0" y="23" width="1680" height="1027" />
+    </state>
+    <state x="1103" y="-945" width="604" height="472" key="find.popup/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585473690606" />
+    <state x="1046" y="365" width="604" height="472" key="find.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1585484039548" />
+    <state x="1070" y="-374" width="670" height="675" key="run.anything.popup" timestamp="1585471177523">
+      <screen x="-491" y="-1417" width="2560" height="1417" />
+    </state>
+    <state x="1070" y="-374" width="670" height="675" key="run.anything.popup/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585471177523" />
     <state x="1024" y="779" width="670" height="490" key="run.anything.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1585312513165" />
-    <state x="1070" y="-1092" width="670" height="676" key="search.everywhere.popup" timestamp="1585397188170">
+    <state x="1070" y="-1092" width="670" height="676" key="search.everywhere.popup" timestamp="1585495183291">
       <screen x="-491" y="-1417" width="2560" height="1417" />
     </state>
-    <state x="1070" y="-1092" width="670" height="676" key="search.everywhere.popup/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585397188170" />
-    <state x="1024" y="259" width="670" height="490" key="search.everywhere.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1585323113761" />
+    <state x="1070" y="-1092" width="670" height="676" key="search.everywhere.popup/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585495183291" />
+    <state x="1024" y="259" width="670" height="490" key="search.everywhere.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1585489915114" />
   </component>
 </project>

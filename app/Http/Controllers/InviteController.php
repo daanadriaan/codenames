@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Card;
+use App\Models\CardOnTable;
 use App\Models\Chat;
 use App\Models\Location;
+use App\Models\Move;
 use App\Models\Table;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Request;
+use DB;
+use Illuminate\Http\Request;
 use Log;
 
 class InviteController extends Controller
@@ -39,6 +43,7 @@ class InviteController extends Controller
         }
 
         event(new \App\Events\NewTable);
+        $t->load('locations', 'moves');
 
         return response()->json([
             'success' => true,
@@ -51,9 +56,8 @@ class InviteController extends Controller
         if($t = $l->table){
             $t->finished_at = Carbon::now();
             $t->save();
+            event(new \App\Events\Quit($t));
         }
-
-        event(new \App\Events\Quit($t));
 
         return response()->json([
             'success' => true,
@@ -85,7 +89,7 @@ class InviteController extends Controller
         $l->table_id = $t->id;
         $l->save();
 
-        $t->load('locations');
+        $t->load('locations', 'moves');
 
         event(new \App\Events\Joined($t));
 
@@ -105,7 +109,96 @@ class InviteController extends Controller
     public function tables(Request $request){
         return response()->json([
             'success' => true,
-            'tables' => Table::orderByDesc('id')->with('players')->get()
+            'tables' => Table::today()->orderByDesc('id')->with('players')->get()
+        ]);
+    }
+
+    public function move(Request $request){
+        $l = Location::getOrCreateWithPlayersBySession();
+
+        // Get current move
+        if(!$m = $l->table->moves()->orderByDesc('id')->first()){
+            // First move
+            $m = new Move;
+            $m->table_id = $l->table_id;
+        }elseif($m->turns_left == 0){
+            $p = $m;
+            // Next move
+            $m = new Move;
+            $m->is_blue = !$p->is_blue;
+            $m->table_id = $l->table_id;
+        }
+        $m->message = $request->word;
+        $m->turns_left = $request->amount;
+        $m->save();
+
+        event(new \App\Events\NewWord($l->table, $m));
+
+        return response()->json([
+            'success' => true,
+            'move' => $m
+        ]);
+    }
+
+    public function turn(Request $request, Card $card){
+        $l = Location::getOrCreateWithPlayersBySession();
+
+        // Get current move
+        if($m = $l->table->moves()->where('turns_left','>',0)->orderByDesc('id')->first()){
+            // Deal with this turn
+            $pivot = CardOnTable::where('table_id', $l->table_id)
+                ->where('card_id', $card->id)
+                ->first();
+
+            $pivot->turned_at = Carbon::now();
+            $pivot->save();
+
+            event(new \App\Events\Move($l->table, $card, $pivot));
+
+            //Handle proper response
+            if($pivot->role == 4){
+                // Loses
+                return response()->json([
+                    'success' => true,
+                    'loses' => true
+                ]);
+            }elseif($pivot->role == 1){
+                // Civilian: Next turn
+                $m->turns_left = $m->turns_left - 1;
+            }elseif($pivot->role == 2){
+                // Red
+                if($m->is_blue){
+                    // End turn
+                    $m->turns_left = 0;
+                }else{
+                    // Next turn
+                    $m->turns_left = $m->turns_left - 1;
+                }
+            }else{
+                // Blue
+                if(!$m->is_blue){
+                    // End turn
+                    $m->turns_left = 0;
+                }else{
+                    // Next turn
+                    $m->turns_left = $m->turns_left - 1;
+                }
+            }
+
+            // What's next?
+            $m->save();
+
+            if($m->turns_left == 0){
+                $n = new Move;
+                $n->is_blue = !$m->is_blue;
+                $n->table_id = $l->table_id;
+                $n->save();
+            }
+        }
+
+        return response()->json([
+            'success' => true,
+            'move' => $m
         ]);
     }
 }

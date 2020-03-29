@@ -10,12 +10,12 @@ use Illuminate\Database\Eloquent\Model;
 class Table extends Model{
     use UsesUuid;
 
-    public $with = ['locations', 'cards'];
+    public $with = ['locations', 'cards', 'moves'];
 
     const ROLES = [
         1 => 'Burger', // 7
-        2 => 'Starter', // 9
-        3 => 'Volger', // 8
+        2 => 'Starter', // 9 Rood
+        3 => 'Volger', // 8 Blauw
         4 => 'Moordenaar' // 1
     ];
 
@@ -45,10 +45,17 @@ class Table extends Model{
 
     public function cards(){
         return $this->belongsToMany(Card::class)
-            ->withPivot('index', 'role');
+            ->withPivot('index', 'role', 'turned_at');
     }
 
     public function locations(){
         return $this->hasMany(Location::class);
+    }
+    public function moves(){
+        return $this->hasMany(Move::class);
+    }
+
+    public function scopeToday($q){
+        return $q->where('created_at','>', \Carbon\Carbon::now()->subDay());
     }
 }
