@@ -63804,7 +63804,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-console.log('routes.js');
 /* harmony default export */ __webpack_exports__["default"] = ({
   mode: 'history',
   linkActiveClass: 'font-bold',
