@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="e6f1f153-3041-4d91-b015-7c0528d60fe5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_03_26_152904_create_tables_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_03_26_152904_create_tables_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_03_26_154733_create_locations_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_03_26_154733_create_locations_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_03_26_154741_create_teams_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_03_26_154741_create_teams_table.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -227,7 +229,7 @@
       <workItem from="1585219089864" duration="44289000" />
       <workItem from="1585470389510" duration="27000" />
       <workItem from="1585470418674" duration="19934000" />
-      <workItem from="1585566504192" duration="17680000" />
+      <workItem from="1585566504192" duration="17796000" />
     </task>
     <task id="LOCAL-00001" summary="Cards turning">
       <created>1585415724492</created>
@@ -257,7 +259,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585597414672</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Laravel schema fix">
+      <created>1585597456472</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1585597456472</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -287,10 +296,10 @@
     </state>
     <state x="728" y="-1065" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585409093340" />
     <state x="800" y="278" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1585247018519" />
-    <state x="567" y="-1329" key="CommitChangelistDialog2" timestamp="1585597414379">
+    <state x="567" y="-1329" key="CommitChangelistDialog2" timestamp="1585597456374">
       <screen x="-491" y="-1417" width="2560" height="1417" />
     </state>
-    <state x="567" y="-1329" key="CommitChangelistDialog2/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585597414379" />
+    <state x="567" y="-1329" key="CommitChangelistDialog2/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585597456374" />
     <state x="694" y="87" key="CommitChangelistDialog2/0.23.1680.1027@0.23.1680.1027" timestamp="1585415723945" />
     <state width="1186" height="303" key="GridCell.Tab.0.bottom" timestamp="1585585485243">
       <screen x="-491" y="-1417" width="2560" height="1417" />
@@ -316,10 +325,10 @@
       <screen x="-491" y="-1417" width="2560" height="1417" />
     </state>
     <state x="992" y="-1070" key="SettingsEditor/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585470492192" />
-    <state x="516" y="-1096" key="Vcs.Push.Dialog.v2" timestamp="1585597415830">
+    <state x="516" y="-1096" key="Vcs.Push.Dialog.v2" timestamp="1585597457778">
       <screen x="-491" y="-1417" width="2560" height="1417" />
     </state>
-    <state x="516" y="-1096" key="Vcs.Push.Dialog.v2/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585597415830" />
+    <state x="516" y="-1096" key="Vcs.Push.Dialog.v2/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585597457778" />
     <state x="661" y="256" key="Vcs.Push.Dialog.v2/0.23.1680.1027@0.23.1680.1027" timestamp="1585415727924" />
     <state x="1298" y="-785" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1585479129123">
       <screen x="-491" y="-1417" width="2560" height="1417" />

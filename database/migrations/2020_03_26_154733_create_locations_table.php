@@ -19,7 +19,7 @@ class CreateLocationsTable extends Migration
             $table->string('uuid');
             $table->string('name')->nullable();
             $table->timestamps();
-            $table->timestamp('finished_at');
+            $table->timestamp('finished_at')->nullable();
         });
     }
 
