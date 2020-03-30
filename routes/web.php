@@ -18,6 +18,8 @@ Route::group(['as' => 'invite.'], function (){
     Route::post('start', 'InviteController@start')->name('start');
     Route::post('stop', 'InviteController@stop')->name('stop');
     Route::post('get-chats', 'InviteController@chats')->name('chats');
+    Route::post('get-words', 'InviteController@words')->name('cards.get');
+    Route::post('set-words', 'InviteController@setwords')->name('cards.set');
     Route::post('get-tables', 'InviteController@tables')->name('tables');
     Route::get('uitnodiging/{uuid}', 'InviteController@accept')->name('accept');
     Route::post('aansluiten/{uuid}', 'InviteController@join')->name('join');

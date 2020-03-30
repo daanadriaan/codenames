@@ -1,25 +1,34 @@
 <template>
     <div class="relative">
-        <transition name="fade-left">
+        <transition name="fade">
             <div v-if="!table">
-                <h2>Home</h2>
-                <div v-if="location.players" class="mb-30">
-                    Welkom, {{location.players[0].name }} en {{location.players[1].name }}
+                <div class="p-40 border-2 border-blue-lighter rounded mb-20 text-center">
+                    <div v-if="location.players">
+                        Welkom, {{location.players[0].name }} en {{location.players[1].name }}.
+                    </div>
                 </div>
-                <div class="w-full flex">
-                    <button class="btn btn-primary" v-on:click="start">Start spel</button>
+                <div class="w-full min-md:flex">
+                    <div class="p-40 border-2 border-blue-lighter rounded mb-20 flex-1 text-center flex">
+                        <div class="self-center m-auto">
+                            <p class="mb-20">Start een nieuw spel:</p>
+                            <button class="btn btn-blue" v-on:click="start">Start spel</button>
+                        </div>
+                    </div>
+                    <div class="w-20 flex-none"></div>
+                    <div id="tables" class="border-2 border-blue-lighter rounded mb-20 flex-1">
+                        <p class="mb-20 border-b-2 border-blue-lighter p-20 pt-40 text-center">Of sluit je aan bij een bestaand spel:</p>
+                        <div v-for="t in tables" v-on:click="join(t)" class="cursor-pointer p-20 text-blue text-center">Sluit aan bij tafel {{ t.uuid.substr(0,6) }} <i class="fa fa-angle-right"></i></div>
+                        <p v-if="!tables.length" class="p-20 text-center text-blue-light">Er zijn momenteel geen spellen zoekend</p>
+                    </div>
                 </div>
-                <div id="tables">
-                    <button class="btn btn-primary" v-for="t in tables" v-on:click="join(t)">Sluit aan bij tafel {{ t.uuid }}</button>
-                </div>
+
             </div>
         </transition>
-        <transition name="fade-right">
-            <div class="fixed left-0 pl-40 bottom-0 pb-40 z-1">
-                <alert :message="m" v-for="(m, k) in alerts" :key="k"></alert>
-            </div>
-        </transition>
-        <transition name="fade-right">
+
+        <div class="fixed left-0 pl-40 bottom-0 pb-40 z-1">
+            <alert :message="m" v-for="(m, k) in alerts" :key="k"></alert>
+        </div>
+        <transition name="fade">
             <game v-if="table" class="absolute w-full top-0 left-0" :table="table" v-on:stop="stop" v-on:alert="alert" v-on:refresh="getOrCreatePlayers"></game>
         </transition>
         <chat></chat>

@@ -12,11 +12,22 @@ a{
     text-decoration:none;
 }
 
+input, textarea, select, button, a{
+    &:focus, &:active{
+        box-shadow:none;
+        outline: none;
+    }
+}
+
 .btn{
     background-color:#83b1c9;
     border-radius:7px;
     padding:20px 30px;
     color:white;
+}
+
+.btn-blue{
+    @apply bg-blue;
 }
 
 .fade-enter-active, .fade-leave-active {
@@ -26,6 +37,16 @@ a{
     opacity: 0;
 }
 
+
+.grow-y-enter-active, .grow-y-leave-active {
+    transition: all .5s;
+    transform-origin:top;
+}
+.grow-y-enter, .grow-y-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    transform: scaleY(0);
+    padding-top:0;
+    padding-bottom:0;
+}
 
 .fade-left-enter-active, .fade-left-leave-active {
     transition: all .5s;
@@ -38,7 +59,73 @@ a{
 
 .fade-right-enter-active, .fade-right-leave-active {
     transition: all .5s;
+    transform: translateX(0%);
 }
 .fade-right-enter, .fade-right-leave-to /* .fade-leave-active below version 2.1.8 */ {
     opacity: 0;
+    transform: translateX(100%);
+}
+
+.fade-up-enter-active, .fade-up-leave-active {
+    transition: all .5s;
+}
+@for $i from 1 through 30 {
+    .fade-up-enter-active:nth-child(#{$i}) {
+        transition-delay: $i * 0.05s;
+    }
+}
+.fade-up-enter, .fade-up-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+    transform: translateY(100%);
+}
+
+#board > div {
+    position:relative;
+    &:after {
+        content: '';
+        position: absolute;
+        border:2px solid #EEF2F4;
+        width: calc(100% - 2px);
+        height: calc(100% - 2px);
+        top: 0;
+        border-radius:5px;
+        z-index:-1;
+    }
+    @for $y from 0 through 4 {
+        @for $x from 1 through 5 {
+            &:nth-child(#{$y * 5 + $x}) .card{
+                transition-delay: (random(10) + 2) * 0.1s;
+                transform: perspective(500px) translate3d($x * 10px - 25px, $y * 10px - 25px, 150px);
+            }
+        }
+    }
+    .card {
+        transition: transform 2s cubic-bezier(.25, 2.21, .48, .78), opacity 100ms;
+        &:not(.drop) {
+            opacity: 0;
+        }
+
+        &.drop {
+            opacity: 1;
+            transform: perspective(500px) translate3d(0, 0, 0px);
+            transition-duration: 1.5s;
+        }
+    }
+}
+
+.arrow {
+    position: absolute;
+    border-top: 2px solid #e8eef1;
+    border-right: 2px solid #e8eef1;
+    border-radius: 0 5px 0 0;
+    transform: rotate(-55deg) skew(-18deg);
+    width: 20px;
+    height: 20px;
+    top: -12px;
+    left: 40px;
+    background: white;
+
+    &.right{
+        left: calc(100% - 40px);
+    }
 }

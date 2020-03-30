@@ -106,10 +106,36 @@ class InviteController extends Controller
         ]);
     }
 
+    public function words(Request $request){
+        return response()->json([
+            'success' => true,
+            'words' => Card::orderBy('name')->get()
+        ]);
+    }
+
+    public function setwords(Request $request){
+        foreach($request->words as $w){
+            if(isset($w['id'])){
+                Card::where('id',$w['id'])->update(['name' => $w['name']]);
+            }else{
+                Card::insert(['name' => $w['name']]);
+            }
+        }
+
+        return response()->json([
+            'success' => true,
+        ]);
+    }
+
     public function tables(Request $request){
         return response()->json([
             'success' => true,
-            'tables' => Table::today()->orderByDesc('id')->with('players')->get()
+            'tables' => Table::today()
+                ->withCount('locations')
+                ->having('locations_count', '<', 2)
+                ->orderByDesc('id')
+                ->with('players')
+                ->get()
         ]);
     }
 
@@ -153,18 +179,18 @@ class InviteController extends Controller
             $pivot->turned_at = Carbon::now();
             $pivot->save();
 
-            event(new \App\Events\Move($l->table, $card, $pivot));
-
             //Handle proper response
             if($pivot->role == 4){
                 // Loses
+                $m->turns_left = 0;
+
                 return response()->json([
                     'success' => true,
                     'loses' => true
                 ]);
             }elseif($pivot->role == 1){
-                // Civilian: Next turn
-                $m->turns_left = $m->turns_left - 1;
+                // Civilian: Stop
+                $m->turns_left = 0;
             }elseif($pivot->role == 2){
                 // Red
                 if($m->is_blue){
@@ -194,6 +220,10 @@ class InviteController extends Controller
                 $n->table_id = $l->table_id;
                 $n->save();
             }
+
+            $l->table->load('moves');
+
+            event(new \App\Events\Move($l->table, $card, $pivot));
         }
 
         return response()->json([

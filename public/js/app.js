@@ -1949,10 +1949,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['card', 'spy', 'red'],
   data: function data() {
     return {
+      ready: false,
       turned: false
     };
   },
@@ -1963,8 +1966,11 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    console.log(this.card);
+    var self = this;
     if (this.card.pivot.turned_at) this.turned = true;
+    setTimeout(function () {
+      self.ready = true;
+    }, 500);
   },
   methods: {
     turn: function turn() {
@@ -1974,7 +1980,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.card.pivot.role === 4) {
         console.log('moordenaar');
-        this.$emit('wrong');
+        this.$emit('killed');
       } else if (this.card.pivot.role === 1) {
         console.log('burger');
         this.$emit('wrong');
@@ -2092,6 +2098,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootbox__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../bootbox */ "./resources/js/bootbox.js");
 /* harmony import */ var _bootbox__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_bootbox__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _Card__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Card */ "./resources/js/components/Card.vue");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_3__);
 //
 //
 //
@@ -2136,6 +2144,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -2143,10 +2161,29 @@ __webpack_require__.r(__webpack_exports__);
   props: ['table'],
   data: function data() {
     return {
-      messages: []
+      messages: [],
+      modal: false,
+      word: '',
+      amount: '',
+      won: false
     };
   },
+  filters: {},
   computed: {
+    redLeft: function redLeft() {
+      var length = this.table.cards ? this.table.cards.filter(function (el) {
+        return el.pivot.role === 2 && !el.pivot.turned_at;
+      }).length : 9;
+      if (!length) this.won = 'red';
+      return length;
+    },
+    blueLeft: function blueLeft() {
+      var length = this.table.cards ? this.table.cards.filter(function (el) {
+        return el.pivot.role === 3 && !el.pivot.turned_at;
+      }).length : 8;
+      if (!length) this.won = 'blue';
+      return length;
+    },
     currentMove: function currentMove() {
       return this.table.moves.length > 0 ? this.table.moves[this.table.moves.length - 1] : null;
     },
@@ -2175,8 +2212,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
+    var self = this;
     this.initPusher();
-    if (this.table.locations && this.table.locations.length > 1) this.checkMoves();
+    if (this.table.locations && this.table.locations.length > 1) self.checkMoves();
   },
   components: {
     'card': _Card__WEBPACK_IMPORTED_MODULE_2__["default"]
@@ -2203,41 +2241,23 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     openModal: function openModal() {
-      var self = this; // This location is spy, so start.
-
-      _bootbox__WEBPACK_IMPORTED_MODULE_1___default.a.form({
-        buttons: {
-          confirm: {
-            label: 'Let\'s go',
-            className: 'btn-success'
-          },
-          cancel: {
-            label: '',
-            className: 'hidden'
-          }
-        },
-        title: (self.red ? 'Rood' : 'Blauw') + ' is aan zet!',
-        fields: {
-          word: {
-            label: 'Woord',
-            type: 'text'
-          },
-          amount: {
-            label: 'Aantal',
-            type: 'number'
-          }
-        },
-        callback: function callback(values) {
-          if (values) {
-            axios.post('/zet', values).then(function (response) {
-              if (response.data.success) {
-                self.table.moves.push(response.data.move);
-              }
-
-              self.checkMoves();
-            });
-          }
+      this.modal = true;
+    },
+    sendWord: function sendWord() {
+      console.log(this.word);
+      this.modal = false;
+      var self = this;
+      axios.post('/zet', {
+        word: self.word,
+        amount: self.amount
+      }).then(function (response) {
+        if (response.data.success) {
+          self.table.moves.push(response.data.move);
+          self.word = '';
+          self.amount = '';
         }
+
+        self.checkMoves();
       });
     },
     stop: function stop() {
@@ -2273,7 +2293,10 @@ __webpack_require__.r(__webpack_exports__);
         self.$emit('alert', 'Een speler is gestopt');
       });
       channel.bind('move', function (data) {
-        console.log(data);
+        self.table.moves = data.table.moves;
+        setTimeout(function () {
+          self.checkMoves();
+        }, 2000);
         self.table.cards.forEach(function (c, i) {
           if (c.id === data.card.id) {
             data.card.pivot = data.pivot;
@@ -2293,6 +2316,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     right: function right() {
       _bootbox__WEBPACK_IMPORTED_MODULE_1___default.a.alert('Yeeeaaaa');
+    },
+    killed: function killed() {
+      this.won = this.red ? 'blue' : 'red';
     }
   }
 });
@@ -2313,6 +2339,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Game_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Game.vue */ "./resources/js/components/Game.vue");
 /* harmony import */ var _Chat_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Chat.vue */ "./resources/js/components/Chat.vue");
 /* harmony import */ var _Alert_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Alert.vue */ "./resources/js/components/Alert.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2446,12 +2481,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {
+      words: []
+    };
   },
-  mounted: function mounted() {},
-  methods: {}
+  mounted: function mounted() {
+    this.getWords();
+  },
+  methods: {
+    getWords: function getWords() {
+      var self = this;
+      axios.post('/get-words').then(function (response) {
+        console.log(response.data.words);
+
+        if (response.data.success) {
+          self.words = response.data.words;
+        }
+      });
+    },
+    addWord: function addWord() {
+      this.words.push({});
+    },
+    setWords: function setWords() {
+      var self = this;
+      axios.post('/set-words', {
+        words: self.words
+      }).then(function (response) {
+        if (response.data.success) {}
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -44130,55 +44195,61 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card", class: { flipped: _vm.turned } }, [
+  return _c("div", [
     _c(
       "div",
-      {
-        staticClass:
-          "card-inner shadow hover:shadow-lg ease-in-out cursor-pointer"
-      },
+      { staticClass: "card", class: { flipped: _vm.turned, drop: _vm.ready } },
       [
         _c(
           "div",
           {
             staticClass:
-              "bg-blue-lighter front rounded w-full h-full overflow-hidden",
-            on: { click: _vm.turn }
+              "card-inner shadow hover:shadow-lg ease-in-out cursor-pointer rounded"
           },
           [
-            _c("span", { staticClass: "p-40 z-1" }, [
-              _vm._v(_vm._s(_vm.card ? _vm.card.name : ""))
-            ]),
-            _vm._v(" "),
-            _vm.spy
-              ? _c("div", {
-                  staticClass: "top-0 absolute w-full h-full opacity-10",
-                  class: {
-                    "bg-green-lighter": _vm.card.pivot.role === 1,
-                    "bg-red": _vm.card.pivot.role === 2,
-                    "bg-blue": _vm.card.pivot.role === 3,
-                    "bg-black text-white": _vm.card.pivot.role === 4
-                  }
-                })
-              : _vm._e()
-          ]
-        ),
-        _vm._v(" "),
-        _vm.turned > 0
-          ? _c(
+            _c(
               "div",
               {
-                staticClass: "back rounded w-full h-full",
-                class: {
-                  "bg-green-lighter": _vm.card.pivot.role === 1,
-                  "bg-red": _vm.card.pivot.role === 2,
-                  "bg-blue": _vm.card.pivot.role === 3,
-                  "bg-black text-white": _vm.card.pivot.role === 4
-                }
+                staticClass:
+                  "bg-blue-lighter front rounded w-full h-full overflow-hidden",
+                on: { click: _vm.turn }
               },
-              [_c("strong", { staticClass: "p-40" })]
-            )
-          : _vm._e()
+              [
+                _c("span", { staticClass: "p-40 z-1" }, [
+                  _vm._v(_vm._s(_vm.card ? _vm.card.name : ""))
+                ]),
+                _vm._v(" "),
+                _vm.spy
+                  ? _c("div", {
+                      staticClass: "top-0 absolute w-full h-full opacity-10",
+                      class: {
+                        "bg-green-lighter": _vm.card.pivot.role === 1,
+                        "bg-red": _vm.card.pivot.role === 2,
+                        "bg-blue": _vm.card.pivot.role === 3,
+                        "bg-black text-white": _vm.card.pivot.role === 4
+                      }
+                    })
+                  : _vm._e()
+              ]
+            ),
+            _vm._v(" "),
+            _vm.turned > 0
+              ? _c(
+                  "div",
+                  {
+                    staticClass: "back rounded w-full h-full",
+                    class: {
+                      "bg-green-lighter": _vm.card.pivot.role === 1,
+                      "bg-red": _vm.card.pivot.role === 2,
+                      "bg-blue": _vm.card.pivot.role === 3,
+                      "bg-black text-white": _vm.card.pivot.role === 4
+                    }
+                  },
+                  [_c("strong", { staticClass: "p-40" })]
+                )
+              : _vm._e()
+          ]
+        )
       ]
     )
   ])
@@ -44253,93 +44324,39 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      { staticClass: "flex mb-30 min-w-800", attrs: { id: "header" } },
-      [
-        _c(
-          "div",
-          {
-            staticClass:
-              "flex-1 border-2 bg-white border-red rounded px-20  mb-5 pt-10 flex items-center",
-            class: { "opacity-25": !_vm.red },
-            attrs: { id: "red" }
-          },
-          [
-            _c("div", { staticClass: "flex-1 mb-10" }, [
-              _c("div", { class: { "font-bold": _vm.table.locations[0].me } }, [
-                _vm._v(_vm._s(_vm.table.locations[0].players[0].name) + " "),
-                _vm.table.locations[0].spy
-                  ? _c("span", [
-                      _c("i", {
-                        staticClass: "fa fa-user-secret ml-10 text-blue-light"
-                      }),
-                      _vm._v(" " + _vm._s(_vm.redMessage))
-                    ])
-                  : _vm._e()
-              ]),
-              _vm._v(" "),
-              _vm.table.locations[1]
-                ? _c(
-                    "div",
-                    { class: { "font-bold": _vm.table.locations[1].me } },
-                    [
-                      _vm._v(
-                        _vm._s(_vm.table.locations[1].players[0].name) + " "
-                      ),
-                      _vm.table.locations[1].spy
-                        ? _c("span", [
-                            _c("i", {
-                              staticClass:
-                                "fa fa-user-secret ml-10 text-blue-light"
-                            }),
-                            _vm._v(" " + _vm._s(_vm.redMessage))
-                          ])
-                        : _vm._e()
-                    ]
-                  )
-                : _vm._e()
-            ]),
-            _vm._v(" "),
-            _vm._m(0)
-          ]
-        ),
-        _vm._v(" "),
-        _c("div", {
-          staticStyle: { width: "30px" },
-          attrs: { clas: "flex-none" }
-        }),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass:
-              "flex-1 border-2 border-blue rounded px-20  mb-5 pt-10 flex bg-white items-center",
-            class: { "opacity-25": _vm.red },
-            attrs: { id: "blue" }
-          },
-          [
-            _vm._m(1),
-            _vm._v(" "),
-            _c("div", { staticClass: "flex-none mb-10 flex" }, [
-              _c("div", { staticClass: "flex-1" }),
-              _vm._v(" "),
-              _c("div", { staticClass: "text-right" }, [
+  return _c(
+    "div",
+    [
+      _c(
+        "div",
+        { staticClass: "flex mb-20 min-w-800", attrs: { id: "header" } },
+        [
+          _c(
+            "div",
+            {
+              staticClass:
+                "flex-1 border-2 bg-white border-red rounded px-20  mb-5 pt-10 flex items-center",
+              class: { "opacity-25": !_vm.red },
+              attrs: { id: "red" }
+            },
+            [
+              _c("div", { staticClass: "flex-1 mb-10" }, [
                 _c(
                   "div",
                   { class: { "font-bold": _vm.table.locations[0].me } },
                   [
+                    _vm._v(
+                      _vm._s(_vm.table.locations[0].players[0].name) + " "
+                    ),
                     _vm.table.locations[0].spy
                       ? _c("span", [
-                          _vm._v(_vm._s(_vm.blueMessage) + " "),
                           _c("i", {
                             staticClass:
-                              "fa fa-user-secret mr-10 text-blue-light"
-                          })
+                              "fa fa-user-secret ml-10 text-blue-light"
+                          }),
+                          _vm._v(" " + _vm._s(_vm.redMessage))
                         ])
-                      : _vm._e(),
-                    _vm._v(" " + _vm._s(_vm.table.locations[0].players[1].name))
+                      : _vm._e()
                   ]
                 ),
                 _vm._v(" "),
@@ -44348,88 +44365,252 @@ var render = function() {
                       "div",
                       { class: { "font-bold": _vm.table.locations[1].me } },
                       [
+                        _vm._v(
+                          _vm._s(_vm.table.locations[1].players[0].name) + " "
+                        ),
                         _vm.table.locations[1].spy
                           ? _c("span", [
-                              _vm._v(_vm._s(_vm.blueMessage) + " "),
                               _c("i", {
                                 staticClass:
-                                  "fa fa-user-secret mr-10 text-blue-light"
-                              })
+                                  "fa fa-user-secret ml-10 text-blue-light"
+                              }),
+                              _vm._v(" " + _vm._s(_vm.redMessage))
                             ])
-                          : _vm._e(),
-                        _vm._v(
-                          " " + _vm._s(_vm.table.locations[1].players[1].name)
-                        )
+                          : _vm._e()
                       ]
                     )
                   : _vm._e()
-              ])
-            ])
-          ]
-        )
-      ]
-    ),
-    _vm._v(" "),
-    _vm.table.locations && _vm.table.locations.length > 1
-      ? _c(
-          "div",
-          {
-            staticClass: "w-full grid grid-cols-5 gap-4 min-w-800",
-            class: { "pointer-events-none": !_vm.unlock },
-            attrs: { id: "board" }
-          },
-          _vm._l(_vm.table.cards, function(c, k) {
-            return _c("card", {
-              key: k,
-              attrs: { card: c, spy: _vm.spy, red: _vm.red },
-              on: { wrong: _vm.wrong, right: _vm.right }
-            })
+              ]),
+              _vm._v(" "),
+              _c(
+                "ul",
+                { staticClass: "flex-none dots" },
+                _vm._l(_vm.redLeft, function(dot) {
+                  return _c("li", { staticClass: "bg-red" })
+                }),
+                0
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", {
+            staticStyle: { width: "30px" },
+            attrs: { clas: "flex-none" }
           }),
-          1
-        )
-      : _c("div", [_vm._v("\n        Wachten op andere locatie.."), _c("br")]),
-    _vm._v(" "),
-    _c(
-      "button",
-      { staticClass: "pt-10 pr-10 mt-50", on: { click: _vm.stop } },
-      [_vm._v("Stop")]
-    )
-  ])
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "flex-1 border-2 border-blue rounded px-20  mb-5 pt-10 flex bg-white items-center",
+              class: { "opacity-25": _vm.red },
+              attrs: { id: "blue" }
+            },
+            [
+              _c(
+                "ul",
+                { staticClass: "dots flex-1" },
+                _vm._l(_vm.blueLeft, function(dot) {
+                  return _c("li", { staticClass: "bg-blue" })
+                }),
+                0
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex-none mb-10 flex" }, [
+                _c("div", { staticClass: "flex-1" }),
+                _vm._v(" "),
+                _c("div", { staticClass: "text-right" }, [
+                  _c(
+                    "div",
+                    { class: { "font-bold": _vm.table.locations[0].me } },
+                    [
+                      _vm.table.locations[0].spy
+                        ? _c("span", [
+                            _vm._v(_vm._s(_vm.blueMessage) + " "),
+                            _c("i", {
+                              staticClass:
+                                "fa fa-user-secret mr-10 text-blue-light"
+                            })
+                          ])
+                        : _vm._e(),
+                      _vm._v(
+                        " " + _vm._s(_vm.table.locations[0].players[1].name)
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm.table.locations[1]
+                    ? _c(
+                        "div",
+                        { class: { "font-bold": _vm.table.locations[1].me } },
+                        [
+                          _vm.table.locations[1].spy
+                            ? _c("span", [
+                                _vm._v(_vm._s(_vm.blueMessage) + " "),
+                                _c("i", {
+                                  staticClass:
+                                    "fa fa-user-secret mr-10 text-blue-light"
+                                })
+                              ])
+                            : _vm._e(),
+                          _vm._v(
+                            " " + _vm._s(_vm.table.locations[1].players[1].name)
+                          )
+                        ]
+                      )
+                    : _vm._e()
+                ])
+              ])
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c("transition", { attrs: { name: "grow-y" } }, [
+        _vm.modal
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "relative rounded border-blue-lighter border-2 px-30 py-30 mb-30 min-w-800",
+                attrs: { id: "form" }
+              },
+              [
+                _c(
+                  "div",
+                  _vm._b(
+                    { staticClass: "arrow" },
+                    "div",
+                    { right: !_vm.red },
+                    false
+                  )
+                ),
+                _vm._v(
+                  "\n            Jij bent aan zet. Wat gaat het worden?\n            "
+                ),
+                _c("div", { staticClass: "min-sm:flex mt-20" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.word,
+                        expression: "word"
+                      }
+                    ],
+                    staticClass:
+                      "border-2 rounded border-blue-lighter py-10 px-20 flex-1 min-sm:mr-20",
+                    attrs: { placeholder: "woord" },
+                    domProps: { value: _vm.word },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.word = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.amount,
+                        expression: "amount"
+                      }
+                    ],
+                    staticClass:
+                      "border-2 rounded border-blue-lighter py-10 px-20 flex-1 min-sm:mr-20",
+                    attrs: { type: "number", placeholder: "aantal" },
+                    domProps: { value: _vm.amount },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.amount = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "border-2 rounded border-blue-lighter py-10 px-20 flex-none",
+                      on: { click: _vm.sendWord }
+                    },
+                    [_vm._v("Let's go!")]
+                  )
+                ])
+              ]
+            )
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c("transition", { attrs: { name: "grow-y" } }, [
+        _vm.won
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "relative rounded border-blue-lighter border-2 px-30 py-30 mb-30 min-w-800",
+                attrs: { id: "won" }
+              },
+              [
+                _c(
+                  "div",
+                  _vm._b(
+                    { staticClass: "arrow" },
+                    "div",
+                    { right: _vm.won === "blue" },
+                    false
+                  )
+                ),
+                _vm._v(" "),
+                _vm.won === "red"
+                  ? _c("span", [_vm._v("Rood")])
+                  : _c("span", [_vm._v("Blauw")]),
+                _vm._v(" heeft gewonnen!!!\n        ")
+              ]
+            )
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _vm.table.locations && _vm.table.locations.length > 1
+        ? _c(
+            "div",
+            {
+              staticClass: "w-full grid grid-cols-5 gap-4 min-w-800",
+              class: { "pointer-events-none": !_vm.unlock },
+              attrs: { id: "board" }
+            },
+            _vm._l(_vm.table.cards, function(c, k) {
+              return _c("card", {
+                key: c.id,
+                attrs: { card: c, spy: _vm.spy, red: _vm.red },
+                on: { wrong: _vm.wrong, right: _vm.right, killed: _vm.killed }
+              })
+            }),
+            1
+          )
+        : _c("div", [
+            _vm._v("\n        Wachten op andere locatie.."),
+            _c("br")
+          ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "pt-10 pr-10 mt-50", on: { click: _vm.stop } },
+        [_vm._v("Stop")]
+      )
+    ],
+    1
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "flex-none dots" }, [
-      _c("li", { staticClass: "bg-red" }),
-      _vm._v(" "),
-      _c("li", { staticClass: "bg-red" }),
-      _vm._v(" "),
-      _c("li", { staticClass: "bg-red" }),
-      _vm._v(" "),
-      _c("li", { staticClass: "bg-red" }),
-      _vm._v(" "),
-      _c("li", { staticClass: "bg-red" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "dots flex-1" }, [
-      _c("li", { staticClass: "bg-blue" }),
-      _vm._v(" "),
-      _c("li", { staticClass: "bg-blue" }),
-      _vm._v(" "),
-      _c("li", { staticClass: "bg-blue" }),
-      _vm._v(" "),
-      _c("li", { staticClass: "bg-blue" }),
-      _vm._v(" "),
-      _c("li", { staticClass: "bg-blue" })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -44455,68 +44636,124 @@ var render = function() {
     "div",
     { staticClass: "relative" },
     [
-      _c("transition", { attrs: { name: "fade-left" } }, [
+      _c("transition", { attrs: { name: "fade" } }, [
         !_vm.table
           ? _c("div", [
-              _c("h2", [_vm._v("Home")]),
-              _vm._v(" "),
-              _vm.location.players
-                ? _c("div", { staticClass: "mb-30" }, [
-                    _vm._v(
-                      "\n                Welkom, " +
-                        _vm._s(_vm.location.players[0].name) +
-                        " en " +
-                        _vm._s(_vm.location.players[1].name) +
-                        "\n            "
-                    )
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              _c("div", { staticClass: "w-full flex" }, [
-                _c(
-                  "button",
-                  { staticClass: "btn btn-primary", on: { click: _vm.start } },
-                  [_vm._v("Start spel")]
-                )
-              ]),
-              _vm._v(" "),
               _c(
                 "div",
-                { attrs: { id: "tables" } },
-                _vm._l(_vm.tables, function(t) {
-                  return _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
-                      on: {
-                        click: function($event) {
-                          return _vm.join(t)
-                        }
-                      }
-                    },
-                    [_vm._v("Sluit aan bij tafel " + _vm._s(t.uuid))]
-                  )
-                }),
-                0
-              )
+                {
+                  staticClass:
+                    "p-40 border-2 border-blue-lighter rounded mb-20 text-center"
+                },
+                [
+                  _vm.location.players
+                    ? _c("div", [
+                        _vm._v(
+                          "\n                    Welkom, " +
+                            _vm._s(_vm.location.players[0].name) +
+                            " en " +
+                            _vm._s(_vm.location.players[1].name) +
+                            ".\n                "
+                        )
+                      ])
+                    : _vm._e()
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "w-full min-md:flex" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "p-40 border-2 border-blue-lighter rounded mb-20 flex-1 text-center flex"
+                  },
+                  [
+                    _c("div", { staticClass: "self-center m-auto" }, [
+                      _c("p", { staticClass: "mb-20" }, [
+                        _vm._v("Start een nieuw spel:")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-blue",
+                          on: { click: _vm.start }
+                        },
+                        [_vm._v("Start spel")]
+                      )
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "w-20 flex-none" }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "border-2 border-blue-lighter rounded mb-20 flex-1",
+                    attrs: { id: "tables" }
+                  },
+                  [
+                    _c(
+                      "p",
+                      {
+                        staticClass:
+                          "mb-20 border-b-2 border-blue-lighter p-20 pt-40 text-center"
+                      },
+                      [_vm._v("Of sluit je aan bij een bestaand spel:")]
+                    ),
+                    _vm._v(" "),
+                    _vm._l(_vm.tables, function(t) {
+                      return _c(
+                        "div",
+                        {
+                          staticClass:
+                            "cursor-pointer p-20 text-blue text-center",
+                          on: {
+                            click: function($event) {
+                              return _vm.join(t)
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "Sluit aan bij tafel " +
+                              _vm._s(t.uuid.substr(0, 6)) +
+                              " "
+                          ),
+                          _c("i", { staticClass: "fa fa-angle-right" })
+                        ]
+                      )
+                    }),
+                    _vm._v(" "),
+                    !_vm.tables.length
+                      ? _c(
+                          "p",
+                          { staticClass: "p-20 text-center text-blue-light" },
+                          [_vm._v("Er zijn momenteel geen spellen zoekend")]
+                        )
+                      : _vm._e()
+                  ],
+                  2
+                )
+              ])
             ])
           : _vm._e()
       ]),
       _vm._v(" "),
-      _c("transition", { attrs: { name: "fade-right" } }, [
-        _c(
-          "div",
-          { staticClass: "fixed left-0 pl-40 bottom-0 pb-40 z-1" },
-          _vm._l(_vm.alerts, function(m, k) {
-            return _c("alert", { key: k, attrs: { message: m } })
-          }),
-          1
-        )
-      ]),
+      _c(
+        "div",
+        { staticClass: "fixed left-0 pl-40 bottom-0 pb-40 z-1" },
+        _vm._l(_vm.alerts, function(m, k) {
+          return _c("alert", { key: k, attrs: { message: m } })
+        }),
+        1
+      ),
       _vm._v(" "),
       _c(
         "transition",
-        { attrs: { name: "fade-right" } },
+        { attrs: { name: "fade" } },
         [
           _vm.table
             ? _c("game", {
@@ -44560,7 +44797,67 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n    Settings\n")])
+  return _c(
+    "div",
+    {
+      staticClass:
+        "border-blue-lighter border-2 rounded absolute min-w-400 mb-50",
+      staticStyle: { width: "calc(100% - 80px)" }
+    },
+    [
+      _c(
+        "div",
+        {
+          staticClass:
+            "border-b-2 border-blue-lighter p-40 text-center text-blue-dull"
+        },
+        [_vm._v("Woordenlijst")]
+      ),
+      _vm._v(" "),
+      _c(
+        "transition-group",
+        { attrs: { name: "fade-up" } },
+        _vm._l(_vm.words, function(word, k) {
+          return _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: word.name,
+                expression: "word.name"
+              }
+            ],
+            key: word.id,
+            staticClass:
+              "text-center border-b-2 border-blue-lighter px-40 max-md:px-20 py-20 w-full",
+            attrs: { max: "30", placeholder: "Type een woord + enter" },
+            domProps: { value: word.name },
+            on: {
+              blur: _vm.setWords,
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(word, "name", $event.target.value)
+              }
+            }
+          })
+        }),
+        0
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            "px-40 max-md:px-20 py-20 w-full text-blue-dull text-center cursor-pointer",
+          on: { click: _vm.addWord }
+        },
+        [_c("i", { staticClass: "fa fa-plus" }), _vm._v(" toevoegen")]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

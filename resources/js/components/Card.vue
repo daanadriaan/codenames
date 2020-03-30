@@ -1,13 +1,15 @@
 <template>
-    <div class="card" v-bind:class="{'flipped': turned}">
-        <div class="card-inner shadow hover:shadow-lg ease-in-out cursor-pointer">
-            <div class="bg-blue-lighter front rounded w-full h-full overflow-hidden" v-on:click="turn">
-                <span class="p-40 z-1">{{ card ? card.name : '' }}</span>
-                <div class="top-0 absolute w-full h-full opacity-10" v-bind:class="{'bg-green-lighter': card.pivot.role === 1,'bg-red':  card.pivot.role === 2, 'bg-blue':  card.pivot.role === 3,'bg-black text-white': card.pivot.role === 4}" v-if="spy"></div>
-            </div>
-            <div class="back rounded w-full h-full"
-                 v-bind:class="{'bg-green-lighter': card.pivot.role === 1,'bg-red':  card.pivot.role === 2, 'bg-blue':  card.pivot.role === 3,'bg-black text-white': card.pivot.role === 4}" v-if="turned > 0">
-                <strong class="p-40"></strong>
+    <div>
+        <div class="card" v-bind:class="{'flipped': turned, 'drop':ready}">
+            <div class="card-inner shadow hover:shadow-lg ease-in-out cursor-pointer rounded">
+                <div class="bg-blue-lighter front rounded w-full h-full overflow-hidden" v-on:click="turn">
+                    <span class="p-40 z-1">{{ card ? card.name : '' }}</span>
+                    <div class="top-0 absolute w-full h-full opacity-10" v-bind:class="{'bg-green-lighter': card.pivot.role === 1,'bg-red':  card.pivot.role === 2, 'bg-blue':  card.pivot.role === 3,'bg-black text-white': card.pivot.role === 4}" v-if="spy"></div>
+                </div>
+                <div class="back rounded w-full h-full"
+                     v-bind:class="{'bg-green-lighter': card.pivot.role === 1,'bg-red':  card.pivot.role === 2, 'bg-blue':  card.pivot.role === 3,'bg-black text-white': card.pivot.role === 4}" v-if="turned > 0">
+                    <strong class="p-40"></strong>
+                </div>
             </div>
         </div>
     </div>
@@ -18,6 +20,7 @@
         props: ['card', 'spy', 'red'],
         data() {
             return {
+                ready:false,
                 turned: false
             }
         },
@@ -28,8 +31,12 @@
             }
         },
         mounted() {
-            console.log(this.card);
+            let self = this;
             if(this.card.pivot.turned_at) this.turned = true;
+            setTimeout(function(){
+                self.ready = true;
+            }, 500);
+
         },
         methods: {
             turn(){
@@ -37,7 +44,7 @@
 
                 if(this.card.pivot.role === 4){
                     console.log('moordenaar');
-                    this.$emit('wrong');
+                    this.$emit('killed');
                 }else if(this.card.pivot.role === 1){
                     console.log('burger');
                     this.$emit('wrong');

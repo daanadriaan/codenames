@@ -24,8 +24,10 @@
                     <span class="nav-text">Settings</span>
                 </router-link>
             </div>
-            <div id="window" class="flex-1 p-40 overflow-x-scroll">
-                <router-view></router-view>
+            <div id="window" class="flex-1 p-40 overflow-x-scroll overflow-y-scroll h-full relative">
+                <transition name="fade" mode="out-in">
+                    <router-view></router-view>
+                </transition>
             </div>
         </div>
     <script src="{{ asset(mix('/js/app.js')) }}"></script>
