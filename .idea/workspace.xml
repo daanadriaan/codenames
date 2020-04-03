@@ -230,7 +230,7 @@
       <workItem from="1585566504192" duration="18120000" />
       <workItem from="1585755740599" duration="78000" />
       <workItem from="1585830503030" duration="335000" />
-      <workItem from="1585904366365" duration="5593000" />
+      <workItem from="1585904366365" duration="5871000" />
     </task>
     <task id="LOCAL-00001" summary="Cards turning">
       <created>1585415724492</created>
@@ -309,7 +309,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585911252583</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Feature: Settings fixes and remove stuff">
+      <created>1585911465538</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1585911465538</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -341,11 +348,11 @@
     </state>
     <state x="728" y="-1065" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585409093340" />
     <state x="800" y="278" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1585247018519" />
-    <state x="567" y="-1329" key="CommitChangelistDialog2" timestamp="1585911252288">
+    <state x="567" y="-1329" key="CommitChangelistDialog2" timestamp="1585911465438">
       <screen x="-491" y="-1417" width="2560" height="1417" />
     </state>
     <state x="567" y="-1329" key="CommitChangelistDialog2/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585597599193" />
-    <state x="567" y="-1329" key="CommitChangelistDialog2/0.23.1680.1027/-491.-1417.2560.1417@-491.-1417.2560.1417" timestamp="1585911252288" />
+    <state x="567" y="-1329" key="CommitChangelistDialog2/0.23.1680.1027/-491.-1417.2560.1417@-491.-1417.2560.1417" timestamp="1585911465438" />
     <state x="694" y="87" key="CommitChangelistDialog2/0.23.1680.1027@0.23.1680.1027" timestamp="1585415723945" />
     <state width="1319" height="398" key="GridCell.Tab.0.bottom" timestamp="1585909847382">
       <screen x="-491" y="-1417" width="2560" height="1417" />
@@ -383,11 +390,11 @@
       <screen x="-491" y="-1417" width="2560" height="1417" />
     </state>
     <state x="992" y="-1070" key="SettingsEditor/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585470492192" />
-    <state x="516" y="-1096" key="Vcs.Push.Dialog.v2" timestamp="1585911253831">
+    <state x="516" y="-1096" key="Vcs.Push.Dialog.v2" timestamp="1585911466846">
       <screen x="-491" y="-1417" width="2560" height="1417" />
     </state>
     <state x="516" y="-1096" key="Vcs.Push.Dialog.v2/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585597601724" />
-    <state x="516" y="-1096" key="Vcs.Push.Dialog.v2/0.23.1680.1027/-491.-1417.2560.1417@-491.-1417.2560.1417" timestamp="1585911253831" />
+    <state x="516" y="-1096" key="Vcs.Push.Dialog.v2/0.23.1680.1027/-491.-1417.2560.1417@-491.-1417.2560.1417" timestamp="1585911466846" />
     <state x="661" y="256" key="Vcs.Push.Dialog.v2/0.23.1680.1027@0.23.1680.1027" timestamp="1585415727924" />
     <state x="1298" y="-785" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1585479129123">
       <screen x="-491" y="-1417" width="2560" height="1417" />

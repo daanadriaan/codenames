@@ -127,7 +127,9 @@ class InviteController extends Controller
                 }
             }else{
                 if(isset($w['name']) && $w['name'] != ""){
-                    Card::insert(['name' => $w['name']]);
+                    if(!Card::where('name', $w['name'])->first()){
+                        Card::insert(['name' => $w['name']]);
+                    }
                 }
             }
         }
