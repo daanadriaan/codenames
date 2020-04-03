@@ -126,7 +126,7 @@ class InviteController extends Controller
                     Card::where('id', $w['id'])->delete();
                 }
             }else{
-                if($w['name'] != ""){
+                if(isset($w['name']) && $w['name'] != ""){
                     Card::insert(['name' => $w['name']]);
                 }
             }
