@@ -2204,11 +2204,9 @@ __webpack_require__.r(__webpack_exports__);
       return this.table.locations[0].me && this.table.locations[0].spy;
     },
     unlock: function unlock() {
-      if (this.table.moves.length > 0) {
-        if (this.currentMove.message) {
-          if (!this.table.locations[0].me) {
-            return true;
-          }
+      if (this.table.moves.length > 0 && this.currentMove.message) {
+        if (!this.table.locations[0].me) {
+          return true;
         }
       }
 
@@ -2218,7 +2216,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.table.moves && (this.table.moves.length == 0 || !this.table.moves[this.table.moves.length - 1].is_blue);
     },
     status: function status() {
-      if (this.currentMove.message) {
+      if (this.currentMove && this.currentMove.message) {
         return 'Het woord is <strong>' + this.currentMove.message + '</strong>. ' + (this.red ? 'Rood' : 'Blauw') + ' mag nog ' + this.currentMove.turns_left + ' keer kiezen';
       }
 
