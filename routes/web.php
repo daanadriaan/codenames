@@ -18,6 +18,7 @@ Route::group(['as' => 'invite.'], function (){
     Route::post('start', 'InviteController@start')->name('start');
     Route::post('stop', 'InviteController@stop')->name('stop');
     Route::post('get-chats', 'InviteController@chats')->name('chats');
+    Route::post('remove-word', 'InviteController@removeWord')->name('cards.remove');
     Route::post('get-words', 'InviteController@words')->name('cards.get');
     Route::post('set-words', 'InviteController@setwords')->name('cards.set');
     Route::post('get-tables', 'InviteController@tables')->name('tables');

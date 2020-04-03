@@ -113,12 +113,22 @@ class InviteController extends Controller
         ]);
     }
 
+    public function removeWord(Request $request){
+        Card::where('id', $request->word['id'])->delete();
+    }
+
     public function setwords(Request $request){
         foreach($request->words as $w){
-            if(isset($w['id'])){
-                Card::where('id',$w['id'])->update(['name' => $w['name']]);
+            if(isset($w['id']) && is_numeric($w['id'])){
+                if($w['name'] != ""){
+                    Card::where('id', $w['id'])->update(['name' => $w['name']]);
+                }else{
+                    Card::where('id', $w['id'])->delete();
+                }
             }else{
-                Card::insert(['name' => $w['name']]);
+                if($w['name'] != ""){
+                    Card::insert(['name' => $w['name']]);
+                }
             }
         }
 

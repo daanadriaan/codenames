@@ -2513,6 +2513,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2526,23 +2529,27 @@ __webpack_require__.r(__webpack_exports__);
     getWords: function getWords() {
       var self = this;
       axios.post('/get-words').then(function (response) {
-        console.log(response.data.words);
-
         if (response.data.success) {
           self.words = response.data.words;
         }
       });
     },
     addWord: function addWord() {
-      this.words.push({});
+      this.words.push({
+        id: 'x' + Math.random()
+      });
     },
     setWords: function setWords() {
       var self = this;
       axios.post('/set-words', {
         words: self.words
-      }).then(function (response) {
-        if (response.data.success) {}
-      });
+      }).then(function (response) {});
+    },
+    remove: function remove(word) {
+      this.words.splice(this.words.indexOf(word), 1);
+      axios.post('/remove-word', {
+        word: word
+      }).then(function (response) {});
     }
   }
 });
@@ -44882,30 +44889,44 @@ var render = function() {
         "transition-group",
         { attrs: { name: "fade-up" } },
         _vm._l(_vm.words, function(word, k) {
-          return _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: word.name,
-                expression: "word.name"
-              }
-            ],
-            key: word.id,
-            staticClass:
-              "text-center border-b-2 border-blue-lighter px-40 max-md:px-20 py-20 w-full",
-            attrs: { max: "30", placeholder: "Type een woord + enter" },
-            domProps: { value: word.name },
-            on: {
-              blur: _vm.setWords,
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+          return _c("div", { key: word.id, staticClass: "relative" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: word.name,
+                  expression: "word.name"
                 }
-                _vm.$set(word, "name", $event.target.value)
+              ],
+              staticClass:
+                "text-center border-b-2 border-blue-lighter px-40 max-md:px-20 py-20 w-full",
+              attrs: { max: "30", placeholder: "Type een woord + enter" },
+              domProps: { value: word.name },
+              on: {
+                blur: _vm.setWords,
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(word, "name", $event.target.value)
+                }
               }
-            }
-          })
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "absolute top-0 right-0 p-20 cursor-pointer",
+                on: {
+                  click: function($event) {
+                    return _vm.remove(word)
+                  }
+                }
+              },
+              [_vm._v("x")]
+            )
+          ])
         }),
         0
       ),
