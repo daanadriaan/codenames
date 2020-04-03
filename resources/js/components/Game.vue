@@ -1,10 +1,11 @@
 <template>
     <div>
+        <div class="text-grey-light text-center -mt-50 mb-10">Tafel {{ table.uuid.substr(0,6) }}</div>
         <div id="header" class="flex mb-20 min-w-800">
             <div id="red" class="flex-1 border-2 bg-white border-red rounded px-20  mb-5 pt-10 flex items-center" v-bind:class="{'opacity-25': !red }">
                 <div class="flex-1 mb-10">
-                    <div v-bind:class="{'font-bold': table.locations[0].me}">{{ table.locations[0].players[0].name }} <span v-if="table.locations[0].spy"><i class="fa fa-user-secret ml-10 text-blue-light"></i> {{ redMessage }}</span></div>
-                    <div v-bind:class="{'font-bold': table.locations[1].me}" v-if="table.locations[1]">{{ table.locations[1].players[0].name }} <span v-if="table.locations[1].spy"><i class="fa fa-user-secret ml-10 text-blue-light"></i> {{ redMessage }}</span></div>
+                    <div v-bind:class="{'font-bold': table.locations[0].me}">{{ table.locations[0].players[0].name }} <span v-if="table.locations[0].spy"><i class="fa fa-user-secret ml-10 text-blue-light"></i></span></div>
+                    <div v-bind:class="{'font-bold': table.locations[1].me}" v-if="table.locations[1]">{{ table.locations[1].players[0].name }} <span v-if="table.locations[1].spy"><i class="fa fa-user-secret ml-10 text-blue-light"></i></span></div>
                 </div>
                 <ul class="flex-none dots">
                     <li class="bg-red" v-for="dot in redLeft"></li>
@@ -18,15 +19,15 @@
                 <div class="flex-none mb-10 flex">
                     <div class="flex-1"></div>
                     <div class="text-right">
-                        <div v-bind:class="{'font-bold': table.locations[0].me}"><span v-if="table.locations[0].spy">{{ blueMessage }} <i class="fa fa-user-secret mr-10 text-blue-light"></i></span> {{ table.locations[0].players[1].name }}</div>
-                        <div v-bind:class="{'font-bold': table.locations[1].me}" v-if="table.locations[1]"><span v-if="table.locations[1].spy">{{ blueMessage }} <i class="fa fa-user-secret mr-10 text-blue-light"></i></span> {{ table.locations[1].players[1].name }}</div>
+                        <div v-bind:class="{'font-bold': table.locations[0].me}"><span v-if="table.locations[0].spy"><i class="fa fa-user-secret mr-10 text-blue-light"></i></span> {{ table.locations[0].players[1].name }}</div>
+                        <div v-bind:class="{'font-bold': table.locations[1].me}" v-if="table.locations[1]"><span v-if="table.locations[1].spy"><i class="fa fa-user-secret mr-10 text-blue-light"></i></span> {{ table.locations[1].players[1].name }}</div>
                     </div>
                 </div>
             </div>
         </div>
         <transition name="grow-y">
             <div id="form" class="relative rounded border-blue-lighter border-2 px-30 py-30 mb-30 min-w-800" v-if="modal">
-                <div class="arrow" v-bind="{'right': !red}"></div>
+                <div class="arrow" v-bind:class="{'right': !red}"></div>
                 Jij bent aan zet. Wat gaat het worden?
                 <div class="min-sm:flex mt-20">
                     <input class="border-2 rounded border-blue-lighter py-10 px-20 flex-1 min-sm:mr-20" placeholder="woord" v-model="word">
@@ -36,8 +37,17 @@
             </div>
         </transition>
         <transition name="grow-y">
+            <div class="relative rounded border-blue-lighter border-2 px-30 py-30 mb-30 min-w-800" v-if="status && !modal">
+                <div class="arrow" v-bind:class="{'right': !red}"></div>
+                <span v-html="status"></span>
+            </div>
+        </transition>
+        <transition name="fade-up">
+            <img v-if="gif" :src="gif" class="fixed bottom-0 z-1">
+        </transition>
+        <transition name="grow-y">
             <div id="won" class="relative rounded border-blue-lighter border-2 px-30 py-30 mb-30 min-w-800" v-if="won">
-                <div class="arrow" v-bind="{'right': won === 'blue'}"></div>
+                <div class="arrow" v-bind:class="{'right': won === 'blue'}"></div>
                 <span v-if="won === 'red'">Rood</span><span v-else>Blauw</span> heeft gewonnen!!!
             </div>
         </transition>
@@ -65,7 +75,35 @@
                 modal:false,
                 word:'',
                 amount:'',
-                won: false
+                won: false,
+                gif: null,
+                gif_yes:[
+                    'https://i.giphy.com/media/1rRSUboqI9xHFrcuYg/giphy.webp',
+                    'https://media.giphy.com/media/1APhFC9uvva4NLvKnJ/giphy.gif',
+                    'https://media.giphy.com/media/3oKIPmQFtQBzRN23hS/giphy.gif',
+                    'https://media.giphy.com/media/3o7bucLZDhMRLwvQs0/giphy.gif',
+                    'https://media.giphy.com/media/3o7btQH8h0237ix7J6/giphy.gif',
+                    'https://media.giphy.com/media/iFPNdg1jMgtxrpgdyZ/giphy.gif',
+                    'https://media.giphy.com/media/W5NqY4XmJhwMhpSIE1/giphy.gif',
+                    'https://media.giphy.com/media/3ohzdIf977CYNXLECk/giphy.gif',
+                    'https://media.giphy.com/media/Xg5PXpBFiBAHuLWEm1/giphy_s.gif',
+                    'https://media.giphy.com/media/UqpyIO8Mg9OhBJva13/giphy_s.gif',
+                ],
+                gif_no:[
+                    'https://i.giphy.com/media/1rRSUboqI9xHFrcuYg/giphy.webp',
+                    'https://media.giphy.com/media/xT9IggW502xAw99e00/giphy.gif',
+                    'https://media.giphy.com/media/l4FGwr6Vu2EDXhz0I/giphy.gif',
+                    'https://media.giphy.com/media/BMtYWthbHwzatb1ses/giphy.gif',
+                    'https://media.giphy.com/media/xUPGcGuuC115IcDwIg/giphy.gif',
+                    'https://media.giphy.com/media/l0Iy3fdlWBTM7CFEI/giphy.gif',
+                    'https://media.giphy.com/media/26gR2lRjcT37ROvyE/giphy.gif',
+                    'https://media.giphy.com/media/3ohzdYDKUSkwOeXtrW/giphy.gif',
+                    'https://media2.giphy.com/media/l4FGKKRzl7d3Yd50Q/giphy.gif?cid=ecf05e47d87624f4e5d9e850982a673822c3c02734dbe917&rid=giphy.gif',
+                    'https://media0.giphy.com/media/3ohzdEJyWyi9kfCEAE/giphy.gif?cid=ecf05e47293e52f6b3208b6b6c60cafa1eb1a0d0e70f659c&rid=giphy.gif',
+                    'https://media.giphy.com/media/tOgmuwLv6pP7a/giphy_s.gif',
+                    'https://media.giphy.com/media/Y3faOvdOcRdKg/giphy_s.gif',
+                    'https://media.giphy.com/media/xUA7bbu3ddi0rdETwQ/giphy.gif'
+                ],
             }
         },
         filters:{},
@@ -103,11 +141,11 @@
             red: function(){
                 return this.table.moves && (this.table.moves.length == 0 || !this.table.moves[this.table.moves.length - 1].is_blue);
             },
-            redMessage:function(){
-                return this.red && this.currentMove ? (this.currentMove.message ? this.currentMove.message : 'aan het bedenken..') : '';
-            },
-            blueMessage:function(){
-                return !this.red && this.currentMove ? (this.currentMove.message ? this.currentMove.message : 'aan het bedenken..') : '';
+            status:function(){
+                if(this.currentMove.message){
+                    return 'Het woord is <strong>'+this.currentMove.message+'</strong>. '+(this.red ? 'Rood' : 'Blauw')+' mag nog '+this.currentMove.turns_left+' keer kiezen';
+                }
+                return (this.red ? 'Rood' : 'Blauw')+' is aan het bedenken';
             }
         },
         mounted(){
@@ -161,7 +199,6 @@
                         self.$emit('stop');
                         axios.post('/stop')
                             .then(response => {
-                                console.log(response.data);
                                 if (response.data.success) {
 
                                 }
@@ -207,15 +244,18 @@
                 });
                 channel.bind('new-word', function(data) {
                     self.table.moves.push(data.move);
-                    bootbox.alert(data.move.message+' '+data.move.turns_left);
-                    //self.$emit('alert', 'Het nieuwe woord is '+data.move.message);
+                    self.$emit('alert', 'Het nieuwe woord is '+data.move.message+' met '+data.move.turns_left+' zetten');
                 });
             },
             wrong(){
-                bootbox.alert('Awwwwwww');
+                let self = this;
+                this.gif = this.gif_no[Math.floor(Math.random() * this.gif_no.length)];
+                setTimeout(function(){self.gif = null;}, 5000);
             },
             right(){
-                bootbox.alert('Yeeeaaaa');
+                let self = this;
+                this.gif = this.gif_yes[Math.floor(Math.random() * this.gif_yes.length)];
+                setTimeout(function(){self.gif = null;}, 5000);
             },
             killed(){
                 this.won = this.red ? 'blue' : 'red';

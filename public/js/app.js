@@ -2153,6 +2153,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2165,7 +2175,10 @@ __webpack_require__.r(__webpack_exports__);
       modal: false,
       word: '',
       amount: '',
-      won: false
+      won: false,
+      gif: null,
+      gif_yes: ['https://i.giphy.com/media/1rRSUboqI9xHFrcuYg/giphy.webp', 'https://media.giphy.com/media/1APhFC9uvva4NLvKnJ/giphy.gif', 'https://media.giphy.com/media/3oKIPmQFtQBzRN23hS/giphy.gif', 'https://media.giphy.com/media/3o7bucLZDhMRLwvQs0/giphy.gif', 'https://media.giphy.com/media/3o7btQH8h0237ix7J6/giphy.gif', 'https://media.giphy.com/media/iFPNdg1jMgtxrpgdyZ/giphy.gif', 'https://media.giphy.com/media/W5NqY4XmJhwMhpSIE1/giphy.gif', 'https://media.giphy.com/media/3ohzdIf977CYNXLECk/giphy.gif', 'https://media.giphy.com/media/Xg5PXpBFiBAHuLWEm1/giphy_s.gif', 'https://media.giphy.com/media/UqpyIO8Mg9OhBJva13/giphy_s.gif'],
+      gif_no: ['https://i.giphy.com/media/1rRSUboqI9xHFrcuYg/giphy.webp', 'https://media.giphy.com/media/xT9IggW502xAw99e00/giphy.gif', 'https://media.giphy.com/media/l4FGwr6Vu2EDXhz0I/giphy.gif', 'https://media.giphy.com/media/BMtYWthbHwzatb1ses/giphy.gif', 'https://media.giphy.com/media/xUPGcGuuC115IcDwIg/giphy.gif', 'https://media.giphy.com/media/l0Iy3fdlWBTM7CFEI/giphy.gif', 'https://media.giphy.com/media/26gR2lRjcT37ROvyE/giphy.gif', 'https://media.giphy.com/media/3ohzdYDKUSkwOeXtrW/giphy.gif', 'https://media2.giphy.com/media/l4FGKKRzl7d3Yd50Q/giphy.gif?cid=ecf05e47d87624f4e5d9e850982a673822c3c02734dbe917&rid=giphy.gif', 'https://media0.giphy.com/media/3ohzdEJyWyi9kfCEAE/giphy.gif?cid=ecf05e47293e52f6b3208b6b6c60cafa1eb1a0d0e70f659c&rid=giphy.gif', 'https://media.giphy.com/media/tOgmuwLv6pP7a/giphy_s.gif', 'https://media.giphy.com/media/Y3faOvdOcRdKg/giphy_s.gif', 'https://media.giphy.com/media/xUA7bbu3ddi0rdETwQ/giphy.gif']
     };
   },
   filters: {},
@@ -2204,11 +2217,12 @@ __webpack_require__.r(__webpack_exports__);
     red: function red() {
       return this.table.moves && (this.table.moves.length == 0 || !this.table.moves[this.table.moves.length - 1].is_blue);
     },
-    redMessage: function redMessage() {
-      return this.red && this.currentMove ? this.currentMove.message ? this.currentMove.message : 'aan het bedenken..' : '';
-    },
-    blueMessage: function blueMessage() {
-      return !this.red && this.currentMove ? this.currentMove.message ? this.currentMove.message : 'aan het bedenken..' : '';
+    status: function status() {
+      if (this.currentMove.message) {
+        return 'Het woord is <strong>' + this.currentMove.message + '</strong>. ' + (this.red ? 'Rood' : 'Blauw') + ' mag nog ' + this.currentMove.turns_left + ' keer kiezen';
+      }
+
+      return (this.red ? 'Rood' : 'Blauw') + ' is aan het bedenken';
     }
   },
   mounted: function mounted() {
@@ -2266,8 +2280,6 @@ __webpack_require__.r(__webpack_exports__);
         if (result) {
           self.$emit('stop');
           axios.post('/stop').then(function (response) {
-            console.log(response.data);
-
             if (response.data.success) {}
           });
         }
@@ -2308,14 +2320,22 @@ __webpack_require__.r(__webpack_exports__);
       });
       channel.bind('new-word', function (data) {
         self.table.moves.push(data.move);
-        _bootbox__WEBPACK_IMPORTED_MODULE_1___default.a.alert(data.move.message + ' ' + data.move.turns_left); //self.$emit('alert', 'Het nieuwe woord is '+data.move.message);
+        self.$emit('alert', 'Het nieuwe woord is ' + data.move.message + ' met ' + data.move.turns_left + ' zetten');
       });
     },
     wrong: function wrong() {
-      _bootbox__WEBPACK_IMPORTED_MODULE_1___default.a.alert('Awwwwwww');
+      var self = this;
+      this.gif = this.gif_no[Math.floor(Math.random() * this.gif_no.length)];
+      setTimeout(function () {
+        self.gif = null;
+      }, 5000);
     },
     right: function right() {
-      _bootbox__WEBPACK_IMPORTED_MODULE_1___default.a.alert('Yeeeaaaa');
+      var self = this;
+      this.gif = this.gif_yes[Math.floor(Math.random() * this.gif_yes.length)];
+      setTimeout(function () {
+        self.gif = null;
+      }, 5000);
     },
     killed: function killed() {
       this.won = this.red ? 'blue' : 'red';
@@ -2376,6 +2396,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -2387,7 +2410,8 @@ __webpack_require__.r(__webpack_exports__);
       messages: [],
       location: [],
       table: null,
-      tables: []
+      tables: [],
+      loading: false
     };
   },
   components: {
@@ -2437,9 +2461,11 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     start: function start() {
+      this.loading = true;
       var self = this;
       axios.post('/start').then(function (response) {
         if (response.data.success) {
+          self.loading = false;
           self.alerts.push('Je bent een nieuwe tafel gestart');
           self.table = response.data.table;
         }
@@ -2449,9 +2475,11 @@ __webpack_require__.r(__webpack_exports__);
       this.alerts.push(_alert);
     },
     join: function join(t) {
+      this.loading = true;
       var self = this;
       axios.post('/aansluiten/' + t.uuid).then(function (response) {
         if (response.data.success) {
+          self.loading = false;
           self.alerts.push('Je bent aangesloten');
           self.table = response.data.table;
         }
@@ -44327,6 +44355,10 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("div", { staticClass: "text-grey-light text-center -mt-50 mb-10" }, [
+        _vm._v("Tafel " + _vm._s(_vm.table.uuid.substr(0, 6)))
+      ]),
+      _vm._v(" "),
       _c(
         "div",
         { staticClass: "flex mb-20 min-w-800", attrs: { id: "header" } },
@@ -44353,8 +44385,7 @@ var render = function() {
                           _c("i", {
                             staticClass:
                               "fa fa-user-secret ml-10 text-blue-light"
-                          }),
-                          _vm._v(" " + _vm._s(_vm.redMessage))
+                          })
                         ])
                       : _vm._e()
                   ]
@@ -44373,8 +44404,7 @@ var render = function() {
                               _c("i", {
                                 staticClass:
                                   "fa fa-user-secret ml-10 text-blue-light"
-                              }),
-                              _vm._v(" " + _vm._s(_vm.redMessage))
+                              })
                             ])
                           : _vm._e()
                       ]
@@ -44426,7 +44456,6 @@ var render = function() {
                     [
                       _vm.table.locations[0].spy
                         ? _c("span", [
-                            _vm._v(_vm._s(_vm.blueMessage) + " "),
                             _c("i", {
                               staticClass:
                                 "fa fa-user-secret mr-10 text-blue-light"
@@ -44446,7 +44475,6 @@ var render = function() {
                         [
                           _vm.table.locations[1].spy
                             ? _c("span", [
-                                _vm._v(_vm._s(_vm.blueMessage) + " "),
                                 _c("i", {
                                   staticClass:
                                     "fa fa-user-secret mr-10 text-blue-light"
@@ -44476,15 +44504,7 @@ var render = function() {
                 attrs: { id: "form" }
               },
               [
-                _c(
-                  "div",
-                  _vm._b(
-                    { staticClass: "arrow" },
-                    "div",
-                    { right: !_vm.red },
-                    false
-                  )
-                ),
+                _c("div", { staticClass: "arrow", class: { right: !_vm.red } }),
                 _vm._v(
                   "\n            Jij bent aan zet. Wat gaat het worden?\n            "
                 ),
@@ -44551,6 +44571,32 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("transition", { attrs: { name: "grow-y" } }, [
+        _vm.status && !_vm.modal
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "relative rounded border-blue-lighter border-2 px-30 py-30 mb-30 min-w-800"
+              },
+              [
+                _c("div", { staticClass: "arrow", class: { right: !_vm.red } }),
+                _vm._v(" "),
+                _c("span", { domProps: { innerHTML: _vm._s(_vm.status) } })
+              ]
+            )
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c("transition", { attrs: { name: "fade-up" } }, [
+        _vm.gif
+          ? _c("img", {
+              staticClass: "fixed bottom-0 z-1",
+              attrs: { src: _vm.gif }
+            })
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c("transition", { attrs: { name: "grow-y" } }, [
         _vm.won
           ? _c(
               "div",
@@ -44560,15 +44606,10 @@ var render = function() {
                 attrs: { id: "won" }
               },
               [
-                _c(
-                  "div",
-                  _vm._b(
-                    { staticClass: "arrow" },
-                    "div",
-                    { right: _vm.won === "blue" },
-                    false
-                  )
-                ),
+                _c("div", {
+                  staticClass: "arrow",
+                  class: { right: _vm.won === "blue" }
+                }),
                 _vm._v(" "),
                 _vm.won === "red"
                   ? _c("span", [_vm._v("Rood")])
@@ -44636,6 +44677,17 @@ var render = function() {
     "div",
     { staticClass: "relative" },
     [
+      _vm.loading
+        ? _c(
+            "div",
+            {
+              staticClass:
+                "fixed w-full left-0 top-0 h-full bg-black-transparent opacity-20 z-1 flex items-center"
+            },
+            [_vm._m(0)]
+          )
+        : _vm._e(),
+      _vm._v(" "),
       _c("transition", { attrs: { name: "fade" } }, [
         !_vm.table
           ? _c("div", [
@@ -44775,7 +44827,21 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "text-white m-auto text-center text-22",
+        attrs: { id: "spinner" }
+      },
+      [_vm._v("Momentje geduld.."), _c("br"), _vm._v("Jouw spel wordt geladen")]
+    )
+  }
+]
 render._withStripped = true
 
 

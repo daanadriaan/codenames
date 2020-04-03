@@ -1,5 +1,8 @@
 <template>
     <div class="relative">
+        <div class="fixed w-full left-0 top-0 h-full bg-black-transparent opacity-20 z-1 flex items-center" v-if="loading">
+            <div id="spinner" class="text-white m-auto text-center text-22">Momentje geduld..<br>Jouw spel wordt geladen</div>
+        </div>
         <transition name="fade">
             <div v-if="!table">
                 <div class="p-40 border-2 border-blue-lighter rounded mb-20 text-center">
@@ -48,7 +51,8 @@
                 messages:[],
                 location:[],
                 table: null,
-                tables:[]
+                tables:[],
+                loading:false
             }
         },
         components:{
@@ -100,10 +104,12 @@
                 });
             },
             start(){
+                this.loading = true;
                 let self= this;
                 axios.post('/start')
                     .then(response => {
                         if(response.data.success){
+                            self.loading = false;
                             self.alerts.push('Je bent een nieuwe tafel gestart');
                             self.table = response.data.table;
                         }
@@ -113,10 +119,12 @@
                 this.alerts.push(alert);
             },
             join(t){
+                this.loading = true;
                 let self = this;
                 axios.post('/aansluiten/'+t.uuid)
                     .then(response => {
                         if(response.data.success){
+                            self.loading = false;
                             self.alerts.push('Je bent aangesloten');
                             self.table = response.data.table;
                         }

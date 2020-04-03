@@ -47,6 +47,7 @@ let colors = {
     'background':  '#EBF0F3',
 
     'black':        '#000000',
+    'black-transparent': 'rgba(0,0,0,0.2)',
     'almost-black': '#1F1F1F',
     'black-text':   '#1F1E1D',
     'white':        '#FFFFFF',
@@ -208,7 +209,7 @@ module.exports = {
         |
         */
 
-        textSizes: {
+        fontSize: {
             '11':  '11px',
             '12':  '12px',
             '13':  '13px',
@@ -249,7 +250,7 @@ module.exports = {
         |
         */
 
-        fontWeights: {
+        fontWeight: {
             'light':  300,
             'normal': 400,
             'bold':   700,
