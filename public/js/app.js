@@ -2163,6 +2163,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -44350,42 +44352,108 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("div", { staticClass: "text-grey-light text-center -mt-50 mb-10" }, [
-        _vm._v("Tafel " + _vm._s(_vm.table.uuid.substr(0, 6)))
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "flex mb-20 min-w-800", attrs: { id: "header" } },
-        [
-          _c(
-            "div",
-            {
-              staticClass:
-                "flex-1 border-2 bg-white border-red rounded px-20  mb-5 pt-10 flex items-center",
-              class: { "opacity-25": !_vm.red },
-              attrs: { id: "red" }
-            },
-            [
-              _c("div", { staticClass: "flex-1 mb-10" }, [
+  return _c("div", [
+    _c("div", { staticClass: "text-grey-light text-center -mt-50 mb-10" }, [
+      _vm._v("Tafel " + _vm._s(_vm.table.uuid.substr(0, 6)))
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "flex mb-20 min-w-800", attrs: { id: "header" } },
+      [
+        _c(
+          "div",
+          {
+            staticClass:
+              "flex-1 border-2 bg-white border-red rounded px-20  mb-5 pt-10 flex items-center",
+            class: { "opacity-25": !_vm.red },
+            attrs: { id: "red" }
+          },
+          [
+            _c("div", { staticClass: "flex-1 mb-10" }, [
+              _c("div", { class: { "font-bold": _vm.table.locations[0].me } }, [
+                _vm._v(_vm._s(_vm.table.locations[0].players[0].name) + " "),
+                _vm.table.locations[0].spy
+                  ? _c("span", [
+                      _c("i", {
+                        staticClass: "fa fa-user-secret ml-10 text-blue-light"
+                      })
+                    ])
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _vm.table.locations[1]
+                ? _c(
+                    "div",
+                    { class: { "font-bold": _vm.table.locations[1].me } },
+                    [
+                      _vm._v(
+                        _vm._s(_vm.table.locations[1].players[0].name) + " "
+                      ),
+                      _vm.table.locations[1].spy
+                        ? _c("span", [
+                            _c("i", {
+                              staticClass:
+                                "fa fa-user-secret ml-10 text-blue-light"
+                            })
+                          ])
+                        : _vm._e()
+                    ]
+                  )
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c(
+              "ul",
+              { staticClass: "flex-none dots" },
+              _vm._l(_vm.redLeft, function(dot) {
+                return _c("li", { staticClass: "bg-red" })
+              }),
+              0
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", {
+          staticStyle: { width: "30px" },
+          attrs: { clas: "flex-none" }
+        }),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "flex-1 border-2 border-blue rounded px-20  mb-5 pt-10 flex bg-white items-center",
+            class: { "opacity-25": _vm.red },
+            attrs: { id: "blue" }
+          },
+          [
+            _c(
+              "ul",
+              { staticClass: "dots flex-1" },
+              _vm._l(_vm.blueLeft, function(dot) {
+                return _c("li", { staticClass: "bg-blue" })
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex-none mb-10 flex" }, [
+              _c("div", { staticClass: "flex-1" }),
+              _vm._v(" "),
+              _c("div", { staticClass: "text-right" }, [
                 _c(
                   "div",
                   { class: { "font-bold": _vm.table.locations[0].me } },
                   [
-                    _vm._v(
-                      _vm._s(_vm.table.locations[0].players[0].name) + " "
-                    ),
                     _vm.table.locations[0].spy
                       ? _c("span", [
                           _c("i", {
                             staticClass:
-                              "fa fa-user-secret ml-10 text-blue-light"
+                              "fa fa-user-secret mr-10 text-blue-light"
                           })
                         ])
-                      : _vm._e()
+                      : _vm._e(),
+                    _vm._v(" " + _vm._s(_vm.table.locations[0].players[1].name))
                   ]
                 ),
                 _vm._v(" "),
@@ -44394,260 +44462,192 @@ var render = function() {
                       "div",
                       { class: { "font-bold": _vm.table.locations[1].me } },
                       [
-                        _vm._v(
-                          _vm._s(_vm.table.locations[1].players[0].name) + " "
-                        ),
                         _vm.table.locations[1].spy
                           ? _c("span", [
                               _c("i", {
                                 staticClass:
-                                  "fa fa-user-secret ml-10 text-blue-light"
+                                  "fa fa-user-secret mr-10 text-blue-light"
                               })
                             ])
-                          : _vm._e()
+                          : _vm._e(),
+                        _vm._v(
+                          " " + _vm._s(_vm.table.locations[1].players[1].name)
+                        )
                       ]
                     )
                   : _vm._e()
-              ]),
-              _vm._v(" "),
-              _c(
-                "ul",
-                { staticClass: "flex-none dots" },
-                _vm._l(_vm.redLeft, function(dot) {
-                  return _c("li", { staticClass: "bg-red" })
-                }),
-                0
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c("div", {
-            staticStyle: { width: "30px" },
-            attrs: { clas: "flex-none" }
-          }),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass:
-                "flex-1 border-2 border-blue rounded px-20  mb-5 pt-10 flex bg-white items-center",
-              class: { "opacity-25": _vm.red },
-              attrs: { id: "blue" }
-            },
-            [
-              _c(
-                "ul",
-                { staticClass: "dots flex-1" },
-                _vm._l(_vm.blueLeft, function(dot) {
-                  return _c("li", { staticClass: "bg-blue" })
-                }),
-                0
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "flex-none mb-10 flex" }, [
-                _c("div", { staticClass: "flex-1" }),
-                _vm._v(" "),
-                _c("div", { staticClass: "text-right" }, [
-                  _c(
-                    "div",
-                    { class: { "font-bold": _vm.table.locations[0].me } },
-                    [
-                      _vm.table.locations[0].spy
-                        ? _c("span", [
-                            _c("i", {
-                              staticClass:
-                                "fa fa-user-secret mr-10 text-blue-light"
-                            })
-                          ])
-                        : _vm._e(),
-                      _vm._v(
-                        " " + _vm._s(_vm.table.locations[0].players[1].name)
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _vm.table.locations[1]
-                    ? _c(
-                        "div",
-                        { class: { "font-bold": _vm.table.locations[1].me } },
-                        [
-                          _vm.table.locations[1].spy
-                            ? _c("span", [
-                                _c("i", {
-                                  staticClass:
-                                    "fa fa-user-secret mr-10 text-blue-light"
-                                })
-                              ])
-                            : _vm._e(),
-                          _vm._v(
-                            " " + _vm._s(_vm.table.locations[1].players[1].name)
-                          )
-                        ]
-                      )
-                    : _vm._e()
-                ])
               ])
-            ]
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c("transition", { attrs: { name: "grow-y" } }, [
-        _vm.modal
-          ? _c(
-              "div",
-              {
-                staticClass:
-                  "relative rounded border-blue-lighter border-2 px-30 py-30 mb-30 min-w-800",
-                attrs: { id: "form" }
-              },
-              [
-                _c("div", { staticClass: "arrow", class: { right: !_vm.red } }),
-                _vm._v(
-                  "\n            Jij bent aan zet. Wat gaat het worden?\n            "
-                ),
-                _c("div", { staticClass: "min-sm:flex mt-20" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.word,
-                        expression: "word"
-                      }
-                    ],
-                    staticClass:
-                      "border-2 rounded border-blue-lighter py-10 px-20 flex-1 min-sm:mr-20",
-                    attrs: { placeholder: "woord" },
-                    domProps: { value: _vm.word },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.word = $event.target.value
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.amount,
-                        expression: "amount"
-                      }
-                    ],
-                    staticClass:
-                      "border-2 rounded border-blue-lighter py-10 px-20 flex-1 min-sm:mr-20",
-                    attrs: { type: "number", placeholder: "aantal" },
-                    domProps: { value: _vm.amount },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.amount = $event.target.value
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "button",
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _vm.table.locations && _vm.table.locations.length > 1
+      ? _c(
+          "div",
+          [
+            _c("transition", { attrs: { name: "grow-y" } }, [
+              _vm.modal
+                ? _c(
+                    "div",
                     {
                       staticClass:
-                        "border-2 rounded border-blue-lighter py-10 px-20 flex-none",
-                      on: { click: _vm.sendWord }
+                        "relative rounded border-blue-lighter border-2 px-30 py-30 mb-30 min-w-800",
+                      attrs: { id: "form" }
                     },
-                    [_vm._v("Let's go!")]
+                    [
+                      _c("div", {
+                        staticClass: "arrow",
+                        class: { right: !_vm.red }
+                      }),
+                      _vm._v(
+                        "\n                Jij bent aan zet. Wat gaat het worden?\n                "
+                      ),
+                      _c("div", { staticClass: "min-sm:flex mt-20" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.word,
+                              expression: "word"
+                            }
+                          ],
+                          staticClass:
+                            "border-2 rounded border-blue-lighter py-10 px-20 flex-1 min-sm:mr-20",
+                          attrs: { placeholder: "woord" },
+                          domProps: { value: _vm.word },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.word = $event.target.value
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.amount,
+                              expression: "amount"
+                            }
+                          ],
+                          staticClass:
+                            "border-2 rounded border-blue-lighter py-10 px-20 flex-1 min-sm:mr-20",
+                          attrs: { type: "number", placeholder: "aantal" },
+                          domProps: { value: _vm.amount },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.amount = $event.target.value
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "border-2 rounded border-blue-lighter py-10 px-20 flex-none",
+                            on: { click: _vm.sendWord }
+                          },
+                          [_vm._v("Let's go!")]
+                        )
+                      ])
+                    ]
                   )
-                ])
-              ]
-            )
-          : _vm._e()
-      ]),
-      _vm._v(" "),
-      _c("transition", { attrs: { name: "grow-y" } }, [
-        _vm.status && !_vm.modal
-          ? _c(
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("transition", { attrs: { name: "grow-y" } }, [
+              _vm.status && !_vm.modal
+                ? _c(
+                    "div",
+                    {
+                      staticClass:
+                        "relative rounded border-blue-lighter border-2 px-30 py-30 mb-30 min-w-800"
+                    },
+                    [
+                      _c("div", {
+                        staticClass: "arrow",
+                        class: { right: !_vm.red }
+                      }),
+                      _vm._v(" "),
+                      _c("span", {
+                        domProps: { innerHTML: _vm._s(_vm.status) }
+                      })
+                    ]
+                  )
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("transition", { attrs: { name: "fade-up" } }, [
+              _vm.gif
+                ? _c("img", {
+                    staticClass: "fixed bottom-0 z-1",
+                    attrs: { src: _vm.gif }
+                  })
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("transition", { attrs: { name: "grow-y" } }, [
+              _vm.won
+                ? _c(
+                    "div",
+                    {
+                      staticClass:
+                        "relative rounded border-blue-lighter border-2 px-30 py-30 mb-30 min-w-800",
+                      attrs: { id: "won" }
+                    },
+                    [
+                      _c("div", {
+                        staticClass: "arrow",
+                        class: { right: _vm.won === "blue" }
+                      }),
+                      _vm._v(" "),
+                      _vm.won === "red"
+                        ? _c("span", [_vm._v("Rood")])
+                        : _c("span", [_vm._v("Blauw")]),
+                      _vm._v(" heeft gewonnen!!!\n            ")
+                    ]
+                  )
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c(
               "div",
               {
-                staticClass:
-                  "relative rounded border-blue-lighter border-2 px-30 py-30 mb-30 min-w-800"
+                staticClass: "w-full grid grid-cols-5 gap-4 min-w-800",
+                class: { "pointer-events-none": !_vm.unlock },
+                attrs: { id: "board" }
               },
-              [
-                _c("div", { staticClass: "arrow", class: { right: !_vm.red } }),
-                _vm._v(" "),
-                _c("span", { domProps: { innerHTML: _vm._s(_vm.status) } })
-              ]
+              _vm._l(_vm.table.cards, function(c, k) {
+                return _c("card", {
+                  key: c.id,
+                  attrs: { card: c, spy: _vm.spy, red: _vm.red },
+                  on: { wrong: _vm.wrong, right: _vm.right, killed: _vm.killed }
+                })
+              }),
+              1
             )
-          : _vm._e()
-      ]),
-      _vm._v(" "),
-      _c("transition", { attrs: { name: "fade-up" } }, [
-        _vm.gif
-          ? _c("img", {
-              staticClass: "fixed bottom-0 z-1",
-              attrs: { src: _vm.gif }
-            })
-          : _vm._e()
-      ]),
-      _vm._v(" "),
-      _c("transition", { attrs: { name: "grow-y" } }, [
-        _vm.won
-          ? _c(
-              "div",
-              {
-                staticClass:
-                  "relative rounded border-blue-lighter border-2 px-30 py-30 mb-30 min-w-800",
-                attrs: { id: "won" }
-              },
-              [
-                _c("div", {
-                  staticClass: "arrow",
-                  class: { right: _vm.won === "blue" }
-                }),
-                _vm._v(" "),
-                _vm.won === "red"
-                  ? _c("span", [_vm._v("Rood")])
-                  : _c("span", [_vm._v("Blauw")]),
-                _vm._v(" heeft gewonnen!!!\n        ")
-              ]
-            )
-          : _vm._e()
-      ]),
-      _vm._v(" "),
-      _vm.table.locations && _vm.table.locations.length > 1
-        ? _c(
-            "div",
-            {
-              staticClass: "w-full grid grid-cols-5 gap-4 min-w-800",
-              class: { "pointer-events-none": !_vm.unlock },
-              attrs: { id: "board" }
-            },
-            _vm._l(_vm.table.cards, function(c, k) {
-              return _c("card", {
-                key: c.id,
-                attrs: { card: c, spy: _vm.spy, red: _vm.red },
-                on: { wrong: _vm.wrong, right: _vm.right, killed: _vm.killed }
-              })
-            }),
-            1
-          )
-        : _c("div", [
-            _vm._v("\n        Wachten op andere locatie.."),
-            _c("br")
-          ]),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "pt-10 pr-10 mt-50", on: { click: _vm.stop } },
-        [_vm._v("Stop")]
-      )
-    ],
-    1
-  )
+          ],
+          1
+        )
+      : _c("div", [_vm._v("\n        Wachten op andere locatie.."), _c("br")]),
+    _vm._v(" "),
+    _c(
+      "button",
+      { staticClass: "pt-10 pr-10 mt-50", on: { click: _vm.stop } },
+      [_vm._v("Stop")]
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

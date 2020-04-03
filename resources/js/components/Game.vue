@@ -25,34 +25,36 @@
                 </div>
             </div>
         </div>
-        <transition name="grow-y">
-            <div id="form" class="relative rounded border-blue-lighter border-2 px-30 py-30 mb-30 min-w-800" v-if="modal">
-                <div class="arrow" v-bind:class="{'right': !red}"></div>
-                Jij bent aan zet. Wat gaat het worden?
-                <div class="min-sm:flex mt-20">
-                    <input class="border-2 rounded border-blue-lighter py-10 px-20 flex-1 min-sm:mr-20" placeholder="woord" v-model="word">
-                    <input type=number class="border-2 rounded border-blue-lighter py-10 px-20 flex-1 min-sm:mr-20" placeholder="aantal" v-model="amount">
-                    <button class="border-2 rounded border-blue-lighter py-10 px-20 flex-none" v-on:click="sendWord">Let's go!</button>
+        <div v-if="table.locations && table.locations.length > 1">
+            <transition name="grow-y">
+                <div id="form" class="relative rounded border-blue-lighter border-2 px-30 py-30 mb-30 min-w-800" v-if="modal">
+                    <div class="arrow" v-bind:class="{'right': !red}"></div>
+                    Jij bent aan zet. Wat gaat het worden?
+                    <div class="min-sm:flex mt-20">
+                        <input class="border-2 rounded border-blue-lighter py-10 px-20 flex-1 min-sm:mr-20" placeholder="woord" v-model="word">
+                        <input type=number class="border-2 rounded border-blue-lighter py-10 px-20 flex-1 min-sm:mr-20" placeholder="aantal" v-model="amount">
+                        <button class="border-2 rounded border-blue-lighter py-10 px-20 flex-none" v-on:click="sendWord">Let's go!</button>
+                    </div>
                 </div>
+            </transition>
+            <transition name="grow-y">
+                <div class="relative rounded border-blue-lighter border-2 px-30 py-30 mb-30 min-w-800" v-if="status && !modal">
+                    <div class="arrow" v-bind:class="{'right': !red}"></div>
+                    <span v-html="status"></span>
+                </div>
+            </transition>
+            <transition name="fade-up">
+                <img v-if="gif" :src="gif" class="fixed bottom-0 z-1">
+            </transition>
+            <transition name="grow-y">
+                <div id="won" class="relative rounded border-blue-lighter border-2 px-30 py-30 mb-30 min-w-800" v-if="won">
+                    <div class="arrow" v-bind:class="{'right': won === 'blue'}"></div>
+                    <span v-if="won === 'red'">Rood</span><span v-else>Blauw</span> heeft gewonnen!!!
+                </div>
+            </transition>
+            <div id=board class="w-full grid grid-cols-5 gap-4 min-w-800" v-bind:class="{'pointer-events-none': !unlock}">
+                <card v-for="(c, k) in table.cards" :key="c.id" :card="c" :spy="spy" :red="red" v-on:wrong="wrong" v-on:right="right" v-on:killed="killed"></card>
             </div>
-        </transition>
-        <transition name="grow-y">
-            <div class="relative rounded border-blue-lighter border-2 px-30 py-30 mb-30 min-w-800" v-if="status && !modal">
-                <div class="arrow" v-bind:class="{'right': !red}"></div>
-                <span v-html="status"></span>
-            </div>
-        </transition>
-        <transition name="fade-up">
-            <img v-if="gif" :src="gif" class="fixed bottom-0 z-1">
-        </transition>
-        <transition name="grow-y">
-            <div id="won" class="relative rounded border-blue-lighter border-2 px-30 py-30 mb-30 min-w-800" v-if="won">
-                <div class="arrow" v-bind:class="{'right': won === 'blue'}"></div>
-                <span v-if="won === 'red'">Rood</span><span v-else>Blauw</span> heeft gewonnen!!!
-            </div>
-        </transition>
-        <div id=board class="w-full grid grid-cols-5 gap-4 min-w-800" v-if="table.locations && table.locations.length > 1" v-bind:class="{'pointer-events-none': !unlock}">
-            <card v-for="(c, k) in table.cards" :key="c.id" :card="c" :spy="spy" :red="red" v-on:wrong="wrong" v-on:right="right" v-on:killed="killed"></card>
         </div>
         <div v-else>
             Wachten op andere locatie..<br>
