@@ -129,11 +129,9 @@
                 return this.table.locations[0].me && this.table.locations[0].spy;
             },
             unlock: function(){
-                if(this.table.moves.length > 0){
-                    if(this.currentMove.message){
-                        if(!this.table.locations[0].me) {
-                            return true;
-                        }
+                if(this.table.moves.length > 0 && this.currentMove.message){
+                    if(!this.table.locations[0].me) {
+                        return true;
                     }
                 }
                 return false;
@@ -142,7 +140,7 @@
                 return this.table.moves && (this.table.moves.length == 0 || !this.table.moves[this.table.moves.length - 1].is_blue);
             },
             status:function(){
-                if(this.currentMove.message){
+                if(this.currentMove && this.currentMove.message){
                     return 'Het woord is <strong>'+this.currentMove.message+'</strong>. '+(this.red ? 'Rood' : 'Blauw')+' mag nog '+this.currentMove.turns_left+' keer kiezen';
                 }
                 return (this.red ? 'Rood' : 'Blauw')+' is aan het bedenken';
