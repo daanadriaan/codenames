@@ -26,26 +26,28 @@
             </div>
         </div>
         <div v-if="table.locations && table.locations.length > 1">
-            <transition name="grow-y">
-                <div id="form" class="relative rounded border-blue-lighter border-2 px-30 py-30 mb-30 min-w-800" v-if="modal">
-                    <div class="arrow" v-bind:class="{'right': !red}"></div>
-                    Jij bent aan zet. Wat gaat het worden?
-                    <div class="min-sm:flex mt-20">
-                        <input class="border-2 rounded border-blue-lighter py-10 px-20 flex-1 min-sm:mr-20" placeholder="woord" v-model="word">
-                        <input type=number class="border-2 rounded border-blue-lighter py-10 px-20 flex-1 min-sm:mr-20" placeholder="aantal" v-model="amount">
-                        <button class="border-2 rounded border-blue-lighter py-10 px-20 flex-none" v-on:click="sendWord">Let's go!</button>
+            <div v-if="!won">
+                <transition name="grow-y">
+                    <div id="form" class="relative rounded border-blue-lighter border-2 px-30 py-30 mb-30 min-w-800" v-if="modal">
+                        <div class="arrow" v-bind:class="{'right': !red}"></div>
+                        Jij bent aan zet. Wat gaat het worden?
+                        <div class="min-sm:flex mt-20">
+                            <input class="border-2 rounded border-blue-lighter py-10 px-20 flex-1 min-sm:mr-20" placeholder="woord" v-model="word">
+                            <input type=number class="border-2 rounded border-blue-lighter py-10 px-20 flex-1 min-sm:mr-20" placeholder="aantal" v-model="amount">
+                            <button class="border-2 rounded border-blue-lighter py-10 px-20 flex-none" v-on:click="sendWord">Let's go!</button>
+                        </div>
                     </div>
-                </div>
-            </transition>
-            <transition name="grow-y">
-                <div class="relative rounded border-blue-lighter border-2 px-30 py-30 mb-30 min-w-800" v-if="status && !modal">
-                    <div class="arrow" v-bind:class="{'right': !red}"></div>
-                    <span v-html="status"></span>
-                </div>
-            </transition>
-            <transition name="fade-up">
-                <img v-if="gif" :src="gif" class="fixed bottom-0 z-1">
-            </transition>
+                </transition>
+                <transition name="grow-y">
+                    <div class="relative rounded border-blue-lighter border-2 px-30 py-30 mb-30 min-w-800" v-if="status && !modal">
+                        <div class="arrow" v-bind:class="{'right': !red}"></div>
+                        <span v-html="status"></span>
+                    </div>
+                </transition>
+                <transition name="fade-up">
+                    <img v-if="gif" :src="gif" class="fixed bottom-0 z-1">
+                </transition>
+            </div>
             <transition name="grow-y">
                 <div id="won" class="relative rounded border-blue-lighter border-2 px-30 py-30 mb-30 min-w-800" v-if="won">
                     <div class="arrow" v-bind:class="{'right': won === 'blue'}"></div>
@@ -170,14 +172,12 @@
                             this.openModal();
                         }
                     }
-                    console.log(move.message);
                 }
             },
             openModal(){
                 this.modal = true;
             },
             sendWord(){
-                console.log(this.word);
                 this.modal = false;
                 let self = this;
                 axios.post('/zet', {
@@ -258,7 +258,10 @@
                 setTimeout(function(){self.gif = null;}, 5000);
             },
             killed(){
+                let self = this;
+                this.gif = this.gif_no[Math.floor(Math.random() * this.gif_no.length)];
                 this.won = this.red ? 'blue' : 'red';
+                setTimeout(function(){self.gif = null;}, 5000);
             }
         }
     }

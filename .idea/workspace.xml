@@ -4,6 +4,10 @@
     <list default="true" id="e6f1f153-3041-4d91-b015-7c0528d60fe5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/InviteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/InviteController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Table.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Card.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Card.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Game.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Game.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -230,7 +234,7 @@
       <workItem from="1585566504192" duration="18120000" />
       <workItem from="1585755740599" duration="78000" />
       <workItem from="1585830503030" duration="335000" />
-      <workItem from="1585904366365" duration="5871000" />
+      <workItem from="1585904366365" duration="9277000" />
     </task>
     <task id="LOCAL-00001" summary="Cards turning">
       <created>1585415724492</created>
@@ -316,7 +320,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585911465538</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Fix: bug settings">
+      <created>1585912389516</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1585912389516</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -332,7 +343,8 @@
     <MESSAGE value="Laravel schema fix" />
     <MESSAGE value="Feature: Gifs and gameplay" />
     <MESSAGE value="Feature: Settings fixes and remove stuff" />
-    <option name="LAST_COMMIT_MESSAGE" value="Feature: Settings fixes and remove stuff" />
+    <MESSAGE value="Fix: bug settings" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix: bug settings" />
   </component>
   <component name="WindowStateProjectService">
     <state x="940" y="-1047" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585470491223">
@@ -348,11 +360,11 @@
     </state>
     <state x="728" y="-1065" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585409093340" />
     <state x="800" y="278" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1585247018519" />
-    <state x="567" y="-1329" key="CommitChangelistDialog2" timestamp="1585911465438">
+    <state x="567" y="-1329" key="CommitChangelistDialog2" timestamp="1585912389419">
       <screen x="-491" y="-1417" width="2560" height="1417" />
     </state>
     <state x="567" y="-1329" key="CommitChangelistDialog2/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585597599193" />
-    <state x="567" y="-1329" key="CommitChangelistDialog2/0.23.1680.1027/-491.-1417.2560.1417@-491.-1417.2560.1417" timestamp="1585911465438" />
+    <state x="567" y="-1329" key="CommitChangelistDialog2/0.23.1680.1027/-491.-1417.2560.1417@-491.-1417.2560.1417" timestamp="1585912389419" />
     <state x="694" y="87" key="CommitChangelistDialog2/0.23.1680.1027@0.23.1680.1027" timestamp="1585415723945" />
     <state width="1319" height="398" key="GridCell.Tab.0.bottom" timestamp="1585909847382">
       <screen x="-491" y="-1417" width="2560" height="1417" />
@@ -390,11 +402,11 @@
       <screen x="-491" y="-1417" width="2560" height="1417" />
     </state>
     <state x="992" y="-1070" key="SettingsEditor/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585470492192" />
-    <state x="516" y="-1096" key="Vcs.Push.Dialog.v2" timestamp="1585911466846">
+    <state x="516" y="-1096" key="Vcs.Push.Dialog.v2" timestamp="1585912390633">
       <screen x="-491" y="-1417" width="2560" height="1417" />
     </state>
     <state x="516" y="-1096" key="Vcs.Push.Dialog.v2/-491.-1417.2560.1417/0.23.1680.1027@-491.-1417.2560.1417" timestamp="1585597601724" />
-    <state x="516" y="-1096" key="Vcs.Push.Dialog.v2/0.23.1680.1027/-491.-1417.2560.1417@-491.-1417.2560.1417" timestamp="1585911466846" />
+    <state x="516" y="-1096" key="Vcs.Push.Dialog.v2/0.23.1680.1027/-491.-1417.2560.1417@-491.-1417.2560.1417" timestamp="1585912390633" />
     <state x="661" y="256" key="Vcs.Push.Dialog.v2/0.23.1680.1027@0.23.1680.1027" timestamp="1585415727924" />
     <state x="1298" y="-785" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1585479129123">
       <screen x="-491" y="-1417" width="2560" height="1417" />

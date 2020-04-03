@@ -2165,6 +2165,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -2250,15 +2252,12 @@ __webpack_require__.r(__webpack_exports__);
             this.openModal();
           }
         }
-
-        console.log(move.message);
       }
     },
     openModal: function openModal() {
       this.modal = true;
     },
     sendWord: function sendWord() {
-      console.log(this.word);
       this.modal = false;
       var self = this;
       axios.post('/zet', {
@@ -2338,7 +2337,12 @@ __webpack_require__.r(__webpack_exports__);
       }, 5000);
     },
     killed: function killed() {
+      var self = this;
+      this.gif = this.gif_no[Math.floor(Math.random() * this.gif_no.length)];
       this.won = this.red ? 'blue' : 'red';
+      setTimeout(function () {
+        self.gif = null;
+      }, 5000);
     }
   }
 });
@@ -44250,7 +44254,7 @@ var render = function() {
                 on: { click: _vm.turn }
               },
               [
-                _c("span", { staticClass: "p-40 z-1" }, [
+                _c("span", { staticClass: "p-30 z-1" }, [
                   _vm._v(_vm._s(_vm.card ? _vm.card.name : ""))
                 ]),
                 _vm._v(" "),
@@ -44494,115 +44498,126 @@ var render = function() {
       ? _c(
           "div",
           [
-            _c("transition", { attrs: { name: "grow-y" } }, [
-              _vm.modal
-                ? _c(
-                    "div",
-                    {
-                      staticClass:
-                        "relative rounded border-blue-lighter border-2 px-30 py-30 mb-30 min-w-800",
-                      attrs: { id: "form" }
-                    },
-                    [
-                      _c("div", {
-                        staticClass: "arrow",
-                        class: { right: !_vm.red }
-                      }),
-                      _vm._v(
-                        "\n                Jij bent aan zet. Wat gaat het worden?\n                "
-                      ),
-                      _c("div", { staticClass: "min-sm:flex mt-20" }, [
-                        _c("input", {
-                          directives: [
+            !_vm.won
+              ? _c(
+                  "div",
+                  [
+                    _c("transition", { attrs: { name: "grow-y" } }, [
+                      _vm.modal
+                        ? _c(
+                            "div",
                             {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.word,
-                              expression: "word"
-                            }
-                          ],
-                          staticClass:
-                            "border-2 rounded border-blue-lighter py-10 px-20 flex-1 min-sm:mr-20",
-                          attrs: { placeholder: "woord" },
-                          domProps: { value: _vm.word },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.word = $event.target.value
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
+                              staticClass:
+                                "relative rounded border-blue-lighter border-2 px-30 py-30 mb-30 min-w-800",
+                              attrs: { id: "form" }
+                            },
+                            [
+                              _c("div", {
+                                staticClass: "arrow",
+                                class: { right: !_vm.red }
+                              }),
+                              _vm._v(
+                                "\n                    Jij bent aan zet. Wat gaat het worden?\n                    "
+                              ),
+                              _c("div", { staticClass: "min-sm:flex mt-20" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.word,
+                                      expression: "word"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "border-2 rounded border-blue-lighter py-10 px-20 flex-1 min-sm:mr-20",
+                                  attrs: { placeholder: "woord" },
+                                  domProps: { value: _vm.word },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.word = $event.target.value
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.amount,
+                                      expression: "amount"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "border-2 rounded border-blue-lighter py-10 px-20 flex-1 min-sm:mr-20",
+                                  attrs: {
+                                    type: "number",
+                                    placeholder: "aantal"
+                                  },
+                                  domProps: { value: _vm.amount },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.amount = $event.target.value
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "border-2 rounded border-blue-lighter py-10 px-20 flex-none",
+                                    on: { click: _vm.sendWord }
+                                  },
+                                  [_vm._v("Let's go!")]
+                                )
+                              ])
+                            ]
+                          )
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("transition", { attrs: { name: "grow-y" } }, [
+                      _vm.status && !_vm.modal
+                        ? _c(
+                            "div",
                             {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.amount,
-                              expression: "amount"
-                            }
-                          ],
-                          staticClass:
-                            "border-2 rounded border-blue-lighter py-10 px-20 flex-1 min-sm:mr-20",
-                          attrs: { type: "number", placeholder: "aantal" },
-                          domProps: { value: _vm.amount },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.amount = $event.target.value
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass:
-                              "border-2 rounded border-blue-lighter py-10 px-20 flex-none",
-                            on: { click: _vm.sendWord }
-                          },
-                          [_vm._v("Let's go!")]
-                        )
-                      ])
-                    ]
-                  )
-                : _vm._e()
-            ]),
-            _vm._v(" "),
-            _c("transition", { attrs: { name: "grow-y" } }, [
-              _vm.status && !_vm.modal
-                ? _c(
-                    "div",
-                    {
-                      staticClass:
-                        "relative rounded border-blue-lighter border-2 px-30 py-30 mb-30 min-w-800"
-                    },
-                    [
-                      _c("div", {
-                        staticClass: "arrow",
-                        class: { right: !_vm.red }
-                      }),
-                      _vm._v(" "),
-                      _c("span", {
-                        domProps: { innerHTML: _vm._s(_vm.status) }
-                      })
-                    ]
-                  )
-                : _vm._e()
-            ]),
-            _vm._v(" "),
-            _c("transition", { attrs: { name: "fade-up" } }, [
-              _vm.gif
-                ? _c("img", {
-                    staticClass: "fixed bottom-0 z-1",
-                    attrs: { src: _vm.gif }
-                  })
-                : _vm._e()
-            ]),
+                              staticClass:
+                                "relative rounded border-blue-lighter border-2 px-30 py-30 mb-30 min-w-800"
+                            },
+                            [
+                              _c("div", {
+                                staticClass: "arrow",
+                                class: { right: !_vm.red }
+                              }),
+                              _vm._v(" "),
+                              _c("span", {
+                                domProps: { innerHTML: _vm._s(_vm.status) }
+                              })
+                            ]
+                          )
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("transition", { attrs: { name: "fade-up" } }, [
+                      _vm.gif
+                        ? _c("img", {
+                            staticClass: "fixed bottom-0 z-1",
+                            attrs: { src: _vm.gif }
+                          })
+                        : _vm._e()
+                    ])
+                  ],
+                  1
+                )
+              : _vm._e(),
             _vm._v(" "),
             _c("transition", { attrs: { name: "grow-y" } }, [
               _vm.won

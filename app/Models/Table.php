@@ -12,6 +12,8 @@ class Table extends Model{
 
     public $with = ['locations', 'cards', 'moves'];
 
+    public $fillable = ['finished_at'];
+
     const ROLES = [
         1 => 'Burger', // 7
         2 => 'Starter', // 9 Rood
@@ -49,7 +51,7 @@ class Table extends Model{
     }
 
     public function locations(){
-        return $this->hasMany(Location::class);
+        return $this->hasMany(Location::class)->orderBy('updated_at');
     }
     public function moves(){
         return $this->hasMany(Move::class);

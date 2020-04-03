@@ -3,7 +3,7 @@
         <div class="card" v-bind:class="{'flipped': turned, 'drop':ready}">
             <div class="card-inner shadow hover:shadow-lg ease-in-out cursor-pointer rounded">
                 <div class="bg-blue-lighter front rounded w-full h-full overflow-hidden" v-on:click="turn">
-                    <span class="p-40 z-1">{{ card ? card.name : '' }}</span>
+                    <span class="p-30 z-1">{{ card ? card.name : '' }}</span>
                     <div class="top-0 absolute w-full h-full opacity-10" v-bind:class="{'bg-green-lighter': card.pivot.role === 1,'bg-red':  card.pivot.role === 2, 'bg-blue':  card.pivot.role === 3,'bg-black text-white': card.pivot.role === 4}" v-if="spy"></div>
                 </div>
                 <div class="back rounded w-full h-full"

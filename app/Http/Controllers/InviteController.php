@@ -195,6 +195,9 @@ class InviteController extends Controller
             if($pivot->role == 4){
                 // Loses
                 $m->turns_left = 0;
+                $m->save();
+
+                $l->table->update(['finished_at' => Carbon::now()]);
 
                 return response()->json([
                     'success' => true,
